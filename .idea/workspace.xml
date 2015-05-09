@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c21af40f-1463-477d-806a-931045fc9e5c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java" afterPath="$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java" />
-    </list>
+    <list default="true" id="c21af40f-1463-477d-806a-931045fc9e5c" name="Default" comment="" />
     <ignored path="bar.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -75,7 +73,7 @@
       <file leaf-file-name="ServingDAO.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2580288">
+            <state vertical-scroll-proportion="0.2535991">
               <caret line="90" column="21" selection-start-line="90" selection-start-column="21" selection-end-line="90" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -670,7 +668,7 @@
       <updated>1430309780302</updated>
       <workItem from="1430309782931" duration="6485000" />
       <workItem from="1430475156468" duration="839000" />
-      <workItem from="1431176825816" duration="5106000" />
+      <workItem from="1431176825816" duration="5373000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1430312735642</created>
@@ -694,7 +692,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12430000" />
+    <option name="totallyTimeSpent" value="12697000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="960" height="1040" extended-state="0" />
@@ -963,7 +961,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2580288">
+        <state vertical-scroll-proportion="0.2535991">
           <caret line="90" column="21" selection-start-line="90" selection-start-column="21" selection-end-line="90" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
