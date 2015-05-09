@@ -14,16 +14,19 @@ public class ServingDAO {
         //Nothing to see here
     }
 
+    //maak een arraykist aan van orders
     public ArrayList<Order> retrieveLiquids() {
         DatabaseConnection connection = new DatabaseConnection();
         ArrayList<Order> availableOrders = new ArrayList<Order>();
-
+        
+        //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
+        //sql voor informatie uit de database te halen.
             String query = "SELECT * FROM `liquidOrder`";
             ResultSet result;
-
+            //uitkomst van de query wordt hier opgehaald.
             result = connection.executeSQLSelectStatement(query);
-
+            //geeft alle uitkomsten terug uit de database.
             try {
                 while (result.next()) {
                     availableOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item")));
