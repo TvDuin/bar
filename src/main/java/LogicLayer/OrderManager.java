@@ -25,4 +25,10 @@ public class OrderManager {
     public ArrayList<Order> getAllSolidOrders() {
         return serving.retrieveSolids();
     }
+
+    public void serveOrder(Order order, int serverId) {
+        serving.addServer(order, serverId);
+    }
+
+    public String
 }

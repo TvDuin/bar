@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c21af40f-1463-477d-806a-931045fc9e5c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/EntityLayer/Order.java" afterPath="$PROJECT_DIR$/src/main/java/EntityLayer/Order.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/LogicLayer/OrderManager.java" afterPath="$PROJECT_DIR$/src/main/java/LogicLayer/OrderManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java" afterPath="$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java" />
     </list>
     <ignored path="bar.iws" />
@@ -41,7 +42,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/LogicLayer/OrderManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+              <caret line="32" column="17" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#267#268#0" expanded="true" />
@@ -50,26 +51,28 @@
                 <element signature="e#464#465#0" expanded="true" />
                 <element signature="e#515#516#0" expanded="true" />
                 <element signature="e#562#563#0" expanded="true" />
+                <element signature="e#619#620#0" expanded="true" />
+                <element signature="e#669#670#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JFrame.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/PresentationLayer/JFrame.java">
+      <file leaf-file-name="Receipt.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/EntityLayer/Receipt.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.092491835">
+              <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ServingDAO.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ServingDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7149075">
-              <caret line="58" column="175" selection-start-line="58" selection-start-column="175" selection-end-line="58" selection-end-column="175" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="76" column="176" selection-start-line="76" selection-start-column="176" selection-end-line="76" selection-end-column="176" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#523#530#0" expanded="true" />
@@ -83,10 +86,22 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/EntityLayer/Order.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+              <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="18" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#498#499#0" expanded="true" />
+                <element signature="e#523#524#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatabaseConnection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/DataStorageLayer/DatabaseConnection.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -114,9 +129,9 @@
         <option value="$PROJECT_DIR$/src/main/java/Gui.java" />
         <option value="$PROJECT_DIR$/src/main/java/DataStorageLayer/DatabaseConnection.java" />
         <option value="$PROJECT_DIR$/src/main/java/EntityLayer/Bestelling.java" />
-        <option value="$PROJECT_DIR$/src/main/java/LogicLayer/OrderManager.java" />
         <option value="$PROJECT_DIR$/src/main/java/EntityLayer/Order.java" />
         <option value="$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/LogicLayer/OrderManager.java" />
       </list>
     </option>
   </component>
@@ -156,7 +171,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -643,7 +658,7 @@
       <updated>1430309780302</updated>
       <workItem from="1430309782931" duration="6485000" />
       <workItem from="1430475156468" duration="839000" />
-      <workItem from="1431176825816" duration="917000" />
+      <workItem from="1431176825816" duration="2244000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1430312735642</created>
@@ -667,7 +682,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8241000" />
+    <option name="totallyTimeSpent" value="9568000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -744,6 +759,8 @@
             <element signature="e#464#465#0" expanded="true" />
             <element signature="e#515#516#0" expanded="true" />
             <element signature="e#562#563#0" expanded="true" />
+            <element signature="e#619#620#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -766,6 +783,8 @@
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#498#499#0" expanded="true" />
+            <element signature="e#523#524#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -798,6 +817,8 @@
             <element signature="e#464#465#0" expanded="true" />
             <element signature="e#515#516#0" expanded="true" />
             <element signature="e#562#563#0" expanded="true" />
+            <element signature="e#619#620#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -820,6 +841,8 @@
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#498#499#0" expanded="true" />
+            <element signature="e#523#524#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -827,14 +850,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/DataStorageLayer/DatabaseConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DataStorageLayer/DatabaseConnection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.5821545">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
@@ -848,18 +863,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/PresentationLayer/JFrame.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/DataStorageLayer/DatabaseConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/PresentationLayer/JFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.16648531">
           <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/EntityLayer/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#498#499#0" expanded="true" />
+            <element signature="e#523#524#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="76" column="176" selection-start-line="76" selection-start-column="176" selection-end-line="76" selection-end-column="176" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#523#530#0" expanded="true" />
+            <element signature="e#1540#1547#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/LogicLayer/OrderManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="40" selection-start-line="25" selection-start-column="40" selection-end-line="25" selection-end-column="40" />
+          <caret line="32" column="17" selection-start-line="32" selection-start-column="17" selection-end-line="32" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#267#268#0" expanded="true" />
@@ -868,29 +915,17 @@
             <element signature="e#464#465#0" expanded="true" />
             <element signature="e#515#516#0" expanded="true" />
             <element signature="e#562#563#0" expanded="true" />
+            <element signature="e#619#620#0" expanded="true" />
+            <element signature="e#669#670#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/EntityLayer/Order.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/EntityLayer/Receipt.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DataStorageLayer/ServingDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7149075">
-          <caret line="58" column="175" selection-start-line="58" selection-start-column="175" selection-end-line="58" selection-end-column="175" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#523#530#0" expanded="true" />
-            <element signature="e#1540#1547#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.092491835">
+          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>

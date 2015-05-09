@@ -67,4 +67,21 @@ public class ServingDAO {
 
         return availableSolidOrders;
     }
+
+    public void addServer(Order order, int serverId) {
+        DatabaseConnection connection = new DatabaseConnection();
+
+        //Check for a valid connection
+        if(connection.openConnection()) {
+            //Insert SQL code here
+            String query = "INSERT INTO `served` ('orderId', 'serverId') VALUES (" + order.getId() + ", " + serverId + ")"; //Mysql has to auto fill the index of the entry (PK)
+            try {
+                connection.executeSQLInsertStatement(query);
+            }
+
+            catch(Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
