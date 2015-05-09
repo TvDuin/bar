@@ -30,7 +30,7 @@ public class ServingDAO {
             //geeft alle uitkomsten terug uit de database.
             try {
                 while (result.next()) {
-                    availableOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item")));
+                    availableOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item"), result.getInt("status")));
                 }
             }
 
@@ -56,7 +56,7 @@ public class ServingDAO {
             //geeft alle uitkomsten terug uit de database.
             try {
                 while (result.next()) {
-                    availableSolidOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item")));
+                    availableSolidOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item"), result.getInt("status")));
                 }
             }
 
