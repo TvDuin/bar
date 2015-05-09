@@ -24,4 +24,20 @@ public class Order {
     public int getId() {
         return id;
     }
+
+    public int getTableId() {
+        return tableId;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public String getItem() {
+        return item;
+    }
+
+    public int getStatus() {
+        return status;
+    }
 }

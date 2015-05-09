@@ -74,7 +74,7 @@ public class ServingDAO {
         //Check for a valid connection
         if(connection.openConnection()) {
             //Insert SQL code here
-            String query = "INSERT INTO `served` ('orderId', 'serverId') VALUES (" + order.getId() + ", " + serverId + ")"; //Mysql has to auto fill the index of the entry (PK)
+            String query = "INSERT INTO `served` (`orderId`, `serverId`) VALUES (" + order.getId() + ", " + serverId + ")"; //Mysql has to auto fill the index of the entry (PK)
             try {
                 connection.executeSQLInsertStatement(query);
             }
@@ -83,5 +83,46 @@ public class ServingDAO {
                 e.printStackTrace();
             }
         }
+    }
+
+    public ArrayList<Order> retrieveAllFromTable(int tableId) { //Do we need to also include server ID in order history?
+        DatabaseConnection connection = new DatabaseConnection();
+        ArrayList<Order> ordersFromTable = new ArrayList<Order>();
+
+        //Check for valid connection
+        if(connection.openConnection()) {
+            //First select all the orders that belong to one table.
+            String query = "SELECT * FROM `liquidOrder` WHERE `tableId` = " + tableId;
+            ResultSet liquidResult = connection.executeSQLSelectStatement(query);
+            query = "SELECT * FROM `solidOrder` WHERE `tableId` = " + tableId;
+            ResultSet solidResult = connection.executeSQLSelectStatement(query);
+
+            //Then delete the existing orders in the current table {Make way for the new}
+            query = "DELETE * FROM `liquidOrder` WHERE `tableId` = " + tableId;
+            connection.executeSQLDeleteStatement(query);
+            query = "DELETE * FROM `solidOrder` WHERE `tableId` = " + tableId;
+            connection.executeSQLDeleteStatement(query);
+
+            try {
+                while (liquidResult.next()) {
+                    ordersFromTable.add(new Order(liquidResult.getInt("id"), liquidResult.getInt("tableId"), liquidResult.getTime("time"), liquidResult.getString("item"), liquidResult.getInt("status")));
+                }
+
+                while(solidResult.next()) {
+                    ordersFromTable.add(new Order(solidResult.getInt("id"), solidResult.getInt("tableId"), solidResult.getTime("time"), solidResult.getString("item"), solidResult.getInt("status")));
+                }
+
+                for(Order o : ordersFromTable) {
+                    query = "INSERT INTO `orderHistory` (`id`, `tableId`, `time`, `item`) VALUES ('" + o.getId() + "', '" + o.getTableId() + "','" + o.getTime() + "','" + o.getItem() + "')"; //Creates the order history
+                    connection.executeSQLInsertStatement(query);
+                }
+            }
+
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return ordersFromTable;
     }
 }

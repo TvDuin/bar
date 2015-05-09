@@ -2,6 +2,7 @@ package LogicLayer;
 
 import DataStorageLayer.ServingDAO;
 import EntityLayer.Order;
+import EntityLayer.Receipt;
 
 import java.util.ArrayList;
 
@@ -30,5 +31,11 @@ public class OrderManager {
         serving.addServer(order, serverId);
     }
 
-    public String
+    public Receipt returnReceipt(int tabbleId) {
+        Receipt receipt = new Receipt();
+        for(Order o : serving.retrieveAllFromTable(tabbleId)) {
+            receipt.addOrderToReceipt(o);
+        }
+        return receipt;
+    }
 }
