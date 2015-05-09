@@ -11,12 +11,18 @@ import java.util.ArrayList;
 public class OrderManager {
     ServingDAO serving;
 
- //serving is een servingDAO
+    //serving is een servingDAO
     public OrderManager() {
         serving = new ServingDAO();
     }
-//geeft alle servirngs terug uit de de servingDao
+
+
+    //geeft alle servirngs terug uit de de servingDao
     public ArrayList<Order> getAllLiquidOrders() {
         return serving.retrieveLiquids();
+    }
+
+    public ArrayList<Order> getAllSolidOrders() {
+        return serving.retrieveSolids();
     }
 }
