@@ -88,11 +88,12 @@ public class ServingDAO {
     public ArrayList<Order> retrieveAllFromTable(int tableId) { //Do we need to also include server ID in order history?
         DatabaseConnection connection = new DatabaseConnection();
         ArrayList<Order> ordersFromTable = new ArrayList<Order>();
+        String query;
 
         //Check for valid connection
         if(connection.openConnection()) {
             //First select all the orders that belong to one table.
-            String query = "SELECT * FROM `liquidOrder` WHERE `tableId` = " + tableId;
+            query = "SELECT * FROM `liquidOrder` WHERE `tableId` = " + tableId;
             ResultSet liquidResult = connection.executeSQLSelectStatement(query);
             query = "SELECT * FROM `solidOrder` WHERE `tableId` = " + tableId;
             ResultSet solidResult = connection.executeSQLSelectStatement(query);
