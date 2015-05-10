@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class OrderManager {
     ServingDAO serving;
 
-    //serving is een servingDAO
+    //Serving is an instance off servingDAO
     public OrderManager() {
         serving = new ServingDAO();
     }
