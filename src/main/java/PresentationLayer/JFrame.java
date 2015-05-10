@@ -24,11 +24,20 @@ public class JFrame extends javax.swing.JFrame {
         initComponents();
     }
         
-    private void loadData() {
+    private void loadDataLiquids() {
 		DefaultTableModel modelDranken = (DefaultTableModel) jTable2.getModel();
+                
+		for (Order l : this.manager.getAllLiquidOrders()) {
+			modelDranken.addRow(new Object[]{ l });
+		}
+                
+	}
+    
+    private void loadDataSolids() {
+		DefaultTableModel modelSolids = (DefaultTableModel) jTable1.getModel();
 
-		for (Order d : this.manager.getAllLiquidOrders()) {
-			modelDranken.addRow(new Object[]{ d });
+		for (Order s : this.manager.getAllSolidOrders()) {
+			modelSolids.addRow(new Object[]{ s });
 		}
 	}
     
@@ -105,7 +114,7 @@ public class JFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 43, Short.MAX_VALUE))
+                .addGap(0, 30, Short.MAX_VALUE))
         );
 
         pack();
