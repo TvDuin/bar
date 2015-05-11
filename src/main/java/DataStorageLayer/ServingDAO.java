@@ -118,7 +118,7 @@ public class ServingDAO {
             connection.executeSQLDeleteStatement(query);
             query = "DELETE * FROM `solidOrder` WHERE `tableId` = " + tableId;
             connection.executeSQLDeleteStatement(query);
-
+//Fixing needed
 //            try {
 //                while (liquidResult.next()) {
 //                    ordersFromTable.add(new Order(liquidResult.getInt("id"), liquidResult.getInt("tableId"), liquidResult.getTime("time"), liquidResult.getString("item"), liquidResult.getInt("status")));
