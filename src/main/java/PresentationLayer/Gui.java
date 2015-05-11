@@ -10,6 +10,8 @@ public class Gui {
         JFrame frame = new JFrame("Hartige Hap - Bar");
         frame.setSize(1280, 720);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        PanelServing panelServing = new PanelServing();
+        frame.add(panelServing);
         frame.setVisible(true);
     }
 }

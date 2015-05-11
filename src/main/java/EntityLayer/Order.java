@@ -2,6 +2,7 @@ package EntityLayer;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by Thomas on 29-4-2015.
@@ -10,14 +11,14 @@ public class Order {
     private int id;
     private int tableId;
     private Date time;
-    private String item;
+    private HashMap<Item, Integer> items;
     private int status;
 
-    public Order(int id, int tableId, Date time, String item, int status) {
+    public Order(int id, int tableId, Date time, HashMap<Item, Integer> items, int status) {
         this.id = id;
         this.tableId = tableId;
         this.time = time;
-        this.item = item;
+        this.items = items;
         this.status = status;
     }
 
@@ -33,8 +34,8 @@ public class Order {
         return time;
     }
 
-    public String getItem() {
-        return item;
+    public HashMap getItems() {
+        return items;
     }
 
     public int getStatus() {
