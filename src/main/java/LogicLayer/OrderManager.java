@@ -10,13 +10,12 @@ import java.util.ArrayList;
  * Created by Thomas on 29-4-2015.
  */
 public class OrderManager {
-    ServingDAO serving;
+    private ServingDAO serving;
 
     //Serving is an instance off servingDAO
     public OrderManager() {
         serving = new ServingDAO();
     }
-
 
     //geeft alle servirngs terug uit de de servingDao
     public ArrayList<Order> getAllLiquidOrders() {
@@ -34,7 +33,7 @@ public class OrderManager {
     public Receipt returnReceipt(int tabbleId) {
         Receipt receipt = new Receipt();
         for(Order o : serving.retrieveAllFromTable(tabbleId)) {
-            receipt.addOrderToReceipt(o);
+            receipt.addOrder(o);
         }
         return receipt;
     }
