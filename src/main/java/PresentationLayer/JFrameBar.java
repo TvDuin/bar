@@ -21,8 +21,7 @@ public class JFrameBar extends javax.swing.JFrame {
      */
     public JFrameBar() {
         initComponents();
-        //loadDataLiquids();
-        //loadDataSolids();
+        updateGUI();
     }
 
     /**
@@ -265,6 +264,11 @@ public class JFrameBar extends javax.swing.JFrame {
             }
         });
     }
+
+        private void updateGUI(){
+            //loadDataLiquids();
+            //loadDataSolids();
+        }
     
         private void loadDataLiquids() {
 		DefaultTableModel modelDranken = (DefaultTableModel) jTable1.getModel();
@@ -282,6 +286,16 @@ public class JFrameBar extends javax.swing.JFrame {
 			modelSolids.addRow(new Object[]{ s });
 		}
 	}
+
+    private String orderPayed(int tableId, int EmployeeId){
+        if (manager.setOrderPayed(tableId, EmployeeId) == true){
+            return "De bestelling van tafel " + tableId + " is betaald.";
+        }
+        else{
+            return "De bestelling is niet betaald.";
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

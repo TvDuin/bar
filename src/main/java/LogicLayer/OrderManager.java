@@ -37,4 +37,8 @@ public class OrderManager {
         }
         return receipt;
     }
+
+    public boolean setOrderPayed(int tableId, int EmployeeId){
+        return serving.setOrderPayedDAO(tableId, EmployeeId);
+    }
 }
