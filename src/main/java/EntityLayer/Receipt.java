@@ -16,6 +16,7 @@ public class Receipt {
     private Date date;
     String dateRepresentation;
     private int serverId;
+    private double totalPrice;
 
     public Receipt(){
         items = new HashMap<Item, Integer>();
@@ -48,13 +49,25 @@ public class Receipt {
         }
     }
 
-    public double getTotalPrice() {
-        int totalPrice = 0;
+    public void setTotalPrice() {
+        totalPrice = 0;
 
         for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-            totalPrice += (entry.getKey().getPrice() * entry.getValue());
+            totalPrice += (Double)(entry.getKey().getPrice() * entry.getValue());
+        }
+    }
+
+    public void print() {
+        String newLine = System.getProperty("line.separator");
+
+        System.out.println(dateRepresentation + newLine);
+        System.out.println("-----------------" + newLine);
+
+        for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+            System.out.println(entry.getKey().getName() + "     " + entry.getValue() + "x  " + entry.getKey().getPrice() + newLine);
         }
 
-        return totalPrice;
+        System.out.println(totalPrice);
     }
+
 }

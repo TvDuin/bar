@@ -35,6 +35,9 @@ public class OrderManager {
         for(Order o : serving.retrieveAllFromTable(tabbleId)) {
             receipt.addOrder(o);
         }
+
+        receipt.setTotalPrice();
+
         return receipt;
     }
 
