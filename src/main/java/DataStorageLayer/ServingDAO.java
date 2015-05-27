@@ -143,29 +143,34 @@ public class ServingDAO {
     }
     public boolean setOrderPayedDAO(int tableId, int EmployeeId){
         DatabaseConnection connection = new DatabaseConnection();
-        boolean Boolean = false;
+        boolean bool = false;
 
         //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
             //sql voor informatie uit de database te halen.
             String query = "SELECT * INTO TABLE 2 FROM TABLE 1 WHERE tableId = " + tableId + "";
             String query2 = "INSERT INTO TABLE 2 (EmployeeId) VALUES ('" + EmployeeId + "')";
+            String query3 = "DELETE * FROM TABLE WHERE tableid = " + tableId;
             ResultSet result;
             //uitkomst van de query wordt hier opgehaald.
             result = connection.executeSQLSelectStatement(query);
             connection.executeSQLInsertStatement(query2);
+            connection.executeSQLDeleteStatement(query3);
             //geeft alle uitkomsten terug uit de database.
             try {
-                while (result.next()) {
-                    Boolean = true;
+                if(result.next()) {
+                    bool = true;
+                }
+
+                else {
+                    bool = false;
                 }
             }
             catch (SQLException e) {
                 e.printStackTrace();
-                Boolean = false;
             }
         }
-        return Boolean;
+        return bool;
     }
 }
 
