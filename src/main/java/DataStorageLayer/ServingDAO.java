@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class ServingDAO {
     public ServingDAO(){
-        //Nothing to see herekjasdhkasjhdlashdjash
+        //Nothing to see
     }
 
     public void emptyTable(String table) {
