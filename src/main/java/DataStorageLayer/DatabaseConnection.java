@@ -21,7 +21,7 @@ public class DatabaseConnection {
         statement = null;
     }
 
-    public boolean openConnection()
+    public boolean openConnection() throws SQLException
     {
         boolean result = false;
 
@@ -42,8 +42,7 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                e.printStackTrace();
-                result = false;
+                throw e;
             }
         }
         else
@@ -55,7 +54,7 @@ public class DatabaseConnection {
         return result;
     }
 
-    public boolean connectionIsOpen()
+    public boolean connectionIsOpen() throws SQLException
     {
         boolean open = false;
 
@@ -67,8 +66,7 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                e.printStackTrace();
-                open = false;
+                throw e;
             }
         }
         // Else, at least one the connection or statement fields is null, so
@@ -77,7 +75,7 @@ public class DatabaseConnection {
         return open;
     }
 
-    public void closeConnection()
+    public void closeConnection() throws SQLException
     {
         try
         {
@@ -86,12 +84,12 @@ public class DatabaseConnection {
             // Close the connection
             connection.close();
         }
-        catch(Exception e) {
-            e.printStackTrace();
+        catch(SQLException e) {
+            throw e;
         }
     }
 
-    public ResultSet executeSQLSelectStatement(String query)
+    public ResultSet executeSQLSelectStatement(String query) throws SQLException
     {
         ResultSet resultset = null;
 
@@ -106,15 +104,14 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                e.printStackTrace();
-                resultset = null;
+                throw e;
             }
         }
 
         return resultset;
     }
 
-    public boolean executeSQLDeleteStatement(String query)
+    public boolean executeSQLDeleteStatement(String query) throws SQLException
     {
         boolean result = false;
 
@@ -130,15 +127,14 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                e.printStackTrace();
-                result = false;
+                throw e;
             }
         }
 
         return result;
     }
 
-    public void executeSQLInsertStatement(String query) //Executes insert query, returns true when succeeded
+    public void executeSQLInsertStatement(String query) throws SQLException//Executes insert query, returns true when succeeded
     {
         // First, check whether a some query was passed and the connection with
         // the database.
@@ -151,7 +147,7 @@ public class DatabaseConnection {
             } //Also check when POC and LAM are due. VERY IMPORTANT!
             catch(SQLException e)
             {
-                e.printStackTrace();
+                throw e;
             }
         }
     }
