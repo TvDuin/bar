@@ -42,11 +42,11 @@ public class ServingDAO {
             //Now empty the table to make sure there will be no duplicate orders.
             emptyTable("liquidOrder");
             //geeft alle uitkomsten terug uit de database.
-            try 
+            try {
                 while (result.next()) {
 //How does the 'bestelling' application store its orders?
 //                    availableOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item"), result.getInt("status")));
-                }
+                
             }
 
             catch (SQLException e) {
