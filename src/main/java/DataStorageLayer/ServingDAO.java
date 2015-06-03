@@ -27,7 +27,7 @@ public class ServingDAO {
     }
 
     //maak een arraykist aan van orders
-    public ArrayList<Order> retrieveLiquids() {
+    public ArrayList<Order> retrieveBeverages() {
         DatabaseConnection connection = new DatabaseConnection();
         ArrayList<Order> availableOrders = new ArrayList<Order>();
         HashMap<Item, Integer> items;
@@ -42,7 +42,7 @@ public class ServingDAO {
             //Now empty the table to make sure there will be no duplicate orders.
             emptyTable("liquidOrder");
             //geeft alle uitkomsten terug uit de database.
-            try {
+            try 
                 while (result.next()) {
 //How does the 'bestelling' application store its orders?
 //                    availableOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item"), result.getInt("status")));

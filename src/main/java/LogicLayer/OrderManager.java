@@ -19,7 +19,7 @@ public class OrderManager {
 
     //geeft alle servirngs terug uit de de servingDao
     public ArrayList<Order> getAllLiquidOrders() {
-        return serving.retrieveLiquids();
+        return serving.retrieveBeverages();
     }
 
     public ArrayList<Order> getAllSolidOrders() {
