@@ -1,10 +1,11 @@
 package logicLayer;
 
 import datastoragelayer.ServingDAO;
-import entityLayer.Order;
-import entityLayer.Receipt;
+import entitylayer.Order;
+import entitylayer.Receipt;
 
-import java.util.ArrayList;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by Thomas on 29-4-2015.
@@ -18,19 +19,19 @@ public class OrderManager {
     }
 
     //geeft alle servirngs terug uit de de servingDao
-    public ArrayList<Order> getAllLiquidOrders() {
+    public List<Order> getAllLiquidOrders() throws SQLException{
         return serving.retrieveBeverages();
     }
 
-    public ArrayList<Order> getAllSolidOrders() {
+    public List<Order> getAllSolidOrders() throws SQLException {
         return serving.retrieveSolids();
     }
 
-    public void serveOrder(Order order, int serverId) {
+    public void serveOrder(Order order, int serverId) throws SQLException{
         serving.addServer(order, serverId);
     }
 
-    public Receipt returnReceipt(int tabbleId) {
+    public Receipt returnReceipt(int tabbleId) throws SQLException{
         Receipt receipt = new Receipt();
         for(Order o : serving.retrieveAllFromTable(tabbleId)) {
             receipt.addOrder(o);
@@ -41,7 +42,7 @@ public class OrderManager {
         return receipt;
     }
 
-    public boolean setOrderPayed(int tableId, int EmployeeId){
+    public boolean setOrderPayed(int tableId, int EmployeeId) throws SQLException{
         return serving.setOrderPayedDAO(tableId, EmployeeId);
     }
 }

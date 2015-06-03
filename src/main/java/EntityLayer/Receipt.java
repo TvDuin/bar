@@ -1,4 +1,4 @@
-package entityLayer;
+package entitylayer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by Thomas on 9-5-2015.
  */
 public class Receipt {
-    private HashMap<Item, Integer> items;
+    private Map<Item, Integer> items;
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private Date date;
     String dateRepresentation;
@@ -23,7 +23,7 @@ public class Receipt {
         dateRepresentation = dateFormat.format(date);
     }
 
-    public HashMap returnItems(){
+    public Map returnItems(){
         return items;
     }
 
@@ -36,7 +36,7 @@ public class Receipt {
     }
 
     public void addOrder(Order order) {
-        HashMap<Item, Integer> testmap = order.getItems();
+        Map<Item, Integer> testmap = order.getItems();
         for(Map.Entry<Item, Integer> entry : testmap.entrySet()) {
             if (items.containsKey(entry.getKey())) {
                 items.put(entry.getKey(), entry.getValue() + 1);

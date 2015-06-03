@@ -1,11 +1,9 @@
 package datastoragelayer;
 
-import entityLayer.Item;
-import entityLayer.Order;
+import entitylayer.Order;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,24 +11,13 @@ import java.util.List;
  */
 public class ServingDAO {
     public ServingDAO(){
-        //Nothing to see
-    }
-
-    public void emptyTable(String table) throws SQLException{
-        DatabaseConnection connection = new DatabaseConnection();
-        List<Order> availableOrders = new ArrayList<Order>();
-
-        //gaat kijken of er een connectie bestaat.
-        if(connection.openConnection()) {
-            String query = "DELETE * FROM `" + table + "`";
-            connection.executeSQLDeleteStatement(query);
-        }
+        //Nothing to see here
     }
 
     //maak een arraykist aan van orders
-    public ArrayList<Order> retrieveBeverages() throws SQLException{
+    public List<Order> retrieveBeverages() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
-        ArrayList<Order> availableOrders = new ArrayList<Order>();
+        List<Order> availableOrders = new ArrayList<Order>();
         
         //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
@@ -39,8 +26,6 @@ public class ServingDAO {
             ResultSet result;
             //uitkomst van de query wordt hier opgehaald.
             result = connection.executeSQLSelectStatement(query);
-            //Now empty the table to make sure there will be no duplicate orders.
-            emptyTable("liquidOrder");
             //geeft alle uitkomsten terug uit de database.
             try {
                 while (result.next()) {
@@ -141,7 +126,8 @@ public class ServingDAO {
 
         return ordersFromTable;
     }
-    public boolean setOrderPayedDAO(int tableId, int EmployeeId) throws SQLException{
+    public boolean setOrderPayedDAO(int tableId, int EmployeeId) throws SQLException
+    {
         DatabaseConnection connection = new DatabaseConnection();
         boolean bool = false;
 

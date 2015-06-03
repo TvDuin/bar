@@ -5,7 +5,7 @@
  */
 package presentationLayer;
 
-import entityLayer.Order;
+import entitylayer.Order;
 import logicLayer.OrderManager;
 import javax.swing.table.DefaultTableModel;
 
