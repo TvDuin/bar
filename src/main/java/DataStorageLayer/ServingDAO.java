@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Thomas on 29-4-2015.
@@ -15,9 +16,9 @@ public class ServingDAO {
         //Nothing to see
     }
 
-    public void emptyTable(String table) {
+    public void emptyTable(String table) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
-        ArrayList<Order> availableOrders = new ArrayList<Order>();
+        List<Order> availableOrders = new ArrayList<Order>();
 
         //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
@@ -27,7 +28,7 @@ public class ServingDAO {
     }
 
     //maak een arraykist aan van orders
-    public ArrayList<Order> retrieveBeverages() {
+    public ArrayList<Order> retrieveBeverages() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
         ArrayList<Order> availableOrders = new ArrayList<Order>();
         HashMap<Item, Integer> items;
@@ -57,7 +58,7 @@ public class ServingDAO {
         return availableOrders;
     }
 
-    public ArrayList<Order> retrieveSolids() {
+    public ArrayList<Order> retrieveSolids() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
         ArrayList<Order> availableSolidOrders = new ArrayList<Order>();
 
@@ -83,7 +84,7 @@ public class ServingDAO {
         return availableSolidOrders;
     }
 
-    public void addServer(Order order, int serverId) {
+    public void addServer(Order order, int serverId) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
 
         //Check for a valid connection
@@ -100,7 +101,7 @@ public class ServingDAO {
         }
     }
 
-    public ArrayList<Order> retrieveAllFromTable(int tableId) { //Do we need to also include server ID in order history?
+    public ArrayList<Order> retrieveAllFromTable(int tableId) throws SQLException{ //Do we need to also include server ID in order history?
         DatabaseConnection connection = new DatabaseConnection();
         ArrayList<Order> ordersFromTable = new ArrayList<Order>();
         String query;
@@ -141,7 +142,7 @@ public class ServingDAO {
 
         return ordersFromTable;
     }
-    public boolean setOrderPayedDAO(int tableId, int EmployeeId){
+    public boolean setOrderPayedDAO(int tableId, int EmployeeId)throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
         boolean bool = false;
 
