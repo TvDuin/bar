@@ -31,7 +31,6 @@ public class ServingDAO {
     public ArrayList<Order> retrieveBeverages() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
         ArrayList<Order> availableOrders = new ArrayList<Order>();
-        HashMap<Item, Integer> items;
         
         //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
@@ -51,16 +50,16 @@ public class ServingDAO {
             }
 
             catch (SQLException e) {
-                e.printStackTrace();
+                throw e;
             }
         }
 
         return availableOrders;
     }
 
-    public ArrayList<Order> retrieveSolids() throws SQLException{
+    public List<Order> retrieveSolids() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
-        ArrayList<Order> availableSolidOrders = new ArrayList<Order>();
+        List<Order> availableSolidOrders = new ArrayList<Order>();
 
         //Check for valid connection
         if(connection.openConnection()) {
@@ -77,7 +76,7 @@ public class ServingDAO {
             }
 
             catch (SQLException e) {
-                e.printStackTrace();
+                throw e;
             }
         }
 
@@ -95,8 +94,8 @@ public class ServingDAO {
                 connection.executeSQLInsertStatement(query);
             }
 
-            catch(Exception e) {
-                e.printStackTrace();
+            catch(SQLException e) {
+                throw e;
             }
         }
     }
@@ -136,7 +135,7 @@ public class ServingDAO {
 //            }
 //
 //            catch (SQLException e) {
-//                e.printStackTrace();
+//                throw e;
 //            }
         }
 
@@ -168,7 +167,7 @@ public class ServingDAO {
                 }
             }
             catch (SQLException e) {
-                e.printStackTrace();
+                throw e;
             }
         }
         return bool;
