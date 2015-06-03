@@ -42,7 +42,7 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                System.out.println(e);
+                e.printStackTrace();
                 result = false;
             }
         }
@@ -67,7 +67,7 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                System.out.println(e);
+                e.printStackTrace();
                 open = false;
             }
         }
@@ -87,7 +87,7 @@ public class DatabaseConnection {
             connection.close();
         }
         catch(Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -106,7 +106,7 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                System.out.println(e);
+                e.printStackTrace();
                 resultset = null;
             }
         }
@@ -130,7 +130,7 @@ public class DatabaseConnection {
             }
             catch(SQLException e)
             {
-                System.out.println(e);
+                e.printStackTrace();
                 result = false;
             }
         }
@@ -151,7 +151,7 @@ public class DatabaseConnection {
             } //Also check when POC and LAM are due. VERY IMPORTANT!
             catch(SQLException e)
             {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
     }
