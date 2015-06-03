@@ -1,6 +1,6 @@
 package LogicLayer;
 
-import DataStorageLayer.ServingDAO;
+import dataStorageLayer.ServingDAO;
 import EntityLayer.Order;
 import EntityLayer.Receipt;
 
