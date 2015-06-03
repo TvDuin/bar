@@ -1,6 +1,5 @@
-package EntityLayer;
+package entityLayer;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 

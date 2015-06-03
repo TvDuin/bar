@@ -1,8 +1,8 @@
-package LogicLayer;
+package logicLayer;
 
 import dataStorageLayer.ServingDAO;
-import EntityLayer.Order;
-import EntityLayer.Receipt;
+import entityLayer.Order;
+import entityLayer.Receipt;
 
 import java.util.ArrayList;
 
