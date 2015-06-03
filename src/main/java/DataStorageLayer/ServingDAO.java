@@ -12,7 +12,7 @@ import java.util.HashMap;
  */
 public class ServingDAO {
     public ServingDAO(){
-        //Nothing to see here
+        //Nothing to see herekjasdhkasjhdlashdjash
     }
 
     public void emptyTable(String table) {
@@ -46,7 +46,7 @@ public class ServingDAO {
                 while (result.next()) {
 //How does the 'bestelling' application store its orders?
 //                    availableOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item"), result.getInt("status")));
-                
+                }
             }
 
             catch (SQLException e) {
