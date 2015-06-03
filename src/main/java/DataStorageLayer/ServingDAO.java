@@ -100,9 +100,9 @@ public class ServingDAO {
         }
     }
 
-    public ArrayList<Order> retrieveAllFromTable(int tableId) throws SQLException{ //Do we need to also include server ID in order history?
+    public List<Order> retrieveAllFromTable(int tableId) throws SQLException{ //Do we need to also include server ID in order history?
         DatabaseConnection connection = new DatabaseConnection();
-        ArrayList<Order> ordersFromTable = new ArrayList<Order>();
+        List<Order> ordersFromTable = new ArrayList<Order>();
         String query;
 
         //Check for valid connection
@@ -141,7 +141,7 @@ public class ServingDAO {
 
         return ordersFromTable;
     }
-    public boolean setOrderPayedDAO(int tableId, int EmployeeId)throws SQLException{
+    public boolean setOrderPayedDAO(int tableId, int EmployeeId) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
         boolean bool = false;
 
