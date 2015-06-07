@@ -8,6 +8,7 @@ package presentationLayer;
 import entitylayer.Order;
 import logicLayer.OrderManager;
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 
 /**
  *
@@ -270,7 +271,8 @@ public class JFrameBar extends javax.swing.JFrame {
             //loadDataSolids();
         }
     
-        private void loadDataLiquids() {
+        private void loadDataLiquids() throws SQLException
+        {
 		DefaultTableModel modelDranken = (DefaultTableModel) jTable1.getModel();
                 
 		for (Order l : this.manager.getAllLiquidOrders()) {
@@ -279,7 +281,8 @@ public class JFrameBar extends javax.swing.JFrame {
                 
 	}
     
-    private void loadDataSolids() {
+    private void loadDataSolids() throws SQLException
+    {
 		DefaultTableModel modelSolids = (DefaultTableModel) jTable3.getModel();
 
 		for (Order s : this.manager.getAllSolidOrders()) {
@@ -287,7 +290,8 @@ public class JFrameBar extends javax.swing.JFrame {
 		}
 	}
 
-    private String orderPayed(int tableId, int EmployeeId){
+    private String orderPayed(int tableId, int EmployeeId) throws SQLException
+    {
         if (manager.setOrderPayed(tableId, EmployeeId) == true){
             return "De bestelling van tafel " + tableId + " is betaald.";
         }
