@@ -17,20 +17,21 @@ public class ServingDAO {
     //maak een arraykist aan van orders
     public List<Order> retrieveBeverages() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
-        List<Order> availableOrders = new ArrayList<Order>();
+        List<Integer> availableOrders = new ArrayList<Integer>();
         
         //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
         //sql voor informatie uit de database te halen.
-            String query = "SELECT * FROM `liquidOrder`";
-            ResultSet result;
+            ResultSet result_1; //query that contains all the ID, tableID and statusses from all available
+            ResultSet result_1;
+            ResultSet result_1;
+            String query = "SELECT `ID`,`table_ID`,`status` FROM `order` WHERE `status` = 3;"; // 3 = geplaatst
             //uitkomst van de query wordt hier opgehaald.
-            result = connection.executeSQLSelectStatement(query);
+            result_1 = connection.executeSQLSelectStatement(query);
             //geeft alle uitkomsten terug uit de database.
             try {
-                while (result.next()) {
-//How does the 'bestelling' application store its orders?
-//                    availableOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item"), result.getInt("status")));
+                while (result_1.next()) {
+                    availableOrders.add(new Order(result_1.getInt("ID"), result_1.getInt("table_Id"), result_1.getString("item"), result_1.getInt("status")));
                 }
             }
 

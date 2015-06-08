@@ -8,15 +8,13 @@ import java.util.Map;
  */
 public class Order {
     private int id;
-    private int tableId;
-    private Date time;
+    private int table_ID;
     private Map<Item, Integer> items;
-    private int status;
+    private int status; //1 = geplaatst, 2 = geaccepteerd, 3 = gereed, 4 = uitgeserveerd & 5 = betaald
 
-    public Order(int id, int tableId, Date time, Map<Item, Integer> items, int status) {
+    public Order(int id, int table_ID, Map<Item, Integer> items, int status) {
         this.id = id;
-        this.tableId = tableId;
-        this.time = time;
+        this.table_ID = table_ID;
         this.items = items;
         this.status = status;
     }
@@ -25,12 +23,8 @@ public class Order {
         return id;
     }
 
-    public int getTableId() {
-        return tableId;
-    }
-
-    public Date getTime() {
-        return time;
+    public int getTable_ID() {
+        return table_ID;
     }
 
     public Map getItems() {

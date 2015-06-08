@@ -1,4 +1,4 @@
-package logicLayer;
+package logiclayer;
 
 import datastoragelayer.ServingDAO;
 import entitylayer.Order;

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package presentationLayer;
+package presentationlayer;
 
 import entitylayer.Order;
-import logicLayer.OrderManager;
+import logiclayer.OrderManager;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 
