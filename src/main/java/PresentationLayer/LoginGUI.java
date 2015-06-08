@@ -6,6 +6,8 @@
 package PresentationLayer;
 
 //import LogicLayer.OrderManager;
+import LogicLayer.OrderManager;
+
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,11 +62,11 @@ public class LoginGUI extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("Login");
-        /*jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
-        });*/
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,16 +118,18 @@ public class LoginGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    /*private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-                try {
+
             // TODO add your handling code here:
-            String ID = jTextField1.getText();
-            String passWord = jPasswordField1.getText();
+        if(jTextField1.getText() == ""){}
+        else{
+            int ID = Integer.parseInt(jTextField1.getText());
+            String password = jPasswordField1.getText();
 
             OrderManager manager = new OrderManager();
 
-            boolean loginCheck = manager.checkLogin(ID, passWord);
+            boolean loginCheck = manager.checkLogin(ID, password);
 
             if(loginCheck== true){
                 // Doorsturen naar Voorpagina
@@ -136,12 +140,10 @@ public class LoginGUI extends javax.swing.JFrame {
                 // Foutmelding sturen
                 JOptionPane.showMessageDialog(null, "Id of password is niet goed of uw heeft geen toegang tot dit deelsysteem.", "Melding:", JOptionPane.ERROR_MESSAGE);
 
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Boundry.LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            }}
 
-    }//GEN-LAST:event_jButton1ActionPerformed*/
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

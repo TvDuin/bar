@@ -15,7 +15,7 @@ public class ServingDAO {
     }
 
     //maak een arraykist aan van orders
-    public List<Order> retrieveBeverages() throws SQLException{
+    /*public List<Order> retrieveBeverages() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
         List<Integer> availableOrders = new ArrayList<Integer>();
         
@@ -41,7 +41,7 @@ public class ServingDAO {
         }
 
         return availableOrders;
-    }
+    }*/
 
     public List<Order> retrieveSolids() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();

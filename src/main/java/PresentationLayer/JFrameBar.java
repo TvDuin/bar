@@ -5,7 +5,7 @@
  */
 package PresentationLayer;
 
-import Entitylayer.Order;
+import EntityLayer.Order;
 import LogicLayer.OrderManager;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
@@ -275,9 +275,9 @@ public class JFrameBar extends javax.swing.JFrame {
         {
 		DefaultTableModel modelDranken = (DefaultTableModel) jTable1.getModel();
                 
-		for (Order l : this.manager.getAllLiquidOrders()) {
+		/*for (Order l : this.manager.getAllLiquidOrders()) {
 			modelDranken.addRow(new Object[]{ l });
-		}
+		}*/
                 
 	}
     

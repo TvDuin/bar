@@ -1,4 +1,4 @@
-package entitylayer;
+package EntityLayer;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
