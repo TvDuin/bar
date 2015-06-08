@@ -1,4 +1,4 @@
-package entitylayer;
+package EntityLayer;
 
 /**
  * Created by Thomas on 11-5-2015.

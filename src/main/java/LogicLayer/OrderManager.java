@@ -1,8 +1,7 @@
-package logiclayer;
+package LogicLayer;
 
-import datastoragelayer.ServingDAO;
-import entitylayer.Order;
-import entitylayer.Receipt;
+import DataStorageLayer.ServingDAO;
+import EntityLayer.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -45,4 +44,5 @@ public class OrderManager {
     public boolean setOrderPayed(int tableId, int EmployeeId) throws SQLException{
         return serving.setOrderPayedDAO(tableId, EmployeeId);
     }
+     Medewerker Medewerker1= new Medewerker(209331, "hond");
 }

@@ -1,4 +1,4 @@
-package datastoragelayer;
+package DataStorageLayer;
 
 /**
  * Created by Thomas on 29-4-2015.

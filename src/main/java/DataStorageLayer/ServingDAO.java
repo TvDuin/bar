@@ -1,6 +1,6 @@
-package datastoragelayer;
+package DataStorageLayer;
 
-import entitylayer.Order;
+import EntityLayer.Order;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
