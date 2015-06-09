@@ -22,16 +22,16 @@ public class OrderManager {
     }
 
     //geeft alle servirngs terug uit de de servingDao
-    /*public List<Order> getAllLiquidOrders() throws SQLException{
+    public List<Order> getAllLiquidOrders() throws SQLException{
         return serving.retrieveBeverages();
-    }*/
+    }
 
     public List<Order> getAllSolidOrders() throws SQLException {
         return serving.retrieveSolids();
     }
 
     public void serveOrder(Order order, int serverId) throws SQLException{
-        serving.addServer(order, serverId);
+        serving.serveOrder(order, serverId);
     }
 
     public Receipt returnReceipt(int tabbleId) throws SQLException{

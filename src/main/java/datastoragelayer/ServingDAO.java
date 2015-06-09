@@ -103,10 +103,14 @@ public class ServingDAO {
         if(connection.openConnection()) {
             //Insert SQL code here
             String query_1 =  "UPDATE `dish_order` SET `status` = 4 WHERE `ID` = " + order.getId();
-            String query_2 =  "UPDATE `beverage_order` SET `status` = 4 WHERE `ID` = " + order.getId();
+            String query_2 =  "UPDATE `dish_order` SET `staff_ID` = " + serverId + " WHERE `ID` = " + order.getId();
+            String query_3 =  "UPDATE `beverage_order` SET `status` = 4 WHERE `ID` = " + order.getId();
+            String query_4 =  "UPDATE `beverage_order` SET `staff_ID` = " + serverId + " WHERE `ID` = " + order.getId();
             try {
                 connection.executeSQLInsertStatement(query_1);
                 connection.executeSQLInsertStatement(query_2);
+                connection.executeSQLInsertStatement(query_3);
+                connection.executeSQLInsertStatement(query_4);
             }
 
             catch(SQLException e) {
@@ -118,40 +122,22 @@ public class ServingDAO {
     public List<Order> retrieveAllFromTable(int tableId) throws SQLException{ //Do we need to also include server ID in order history?
         DatabaseConnection connection = new DatabaseConnection();
         List<Order> ordersFromTable = new ArrayList<Order>();
-        String query;
 
         //Check for valid connection
         if(connection.openConnection()) {
-            //First select all the orders that belong to one table.
-            query = "SELECT * FROM `liquidOrder` WHERE `tableId` = " + tableId;
-            ResultSet liquidResult = connection.executeSQLSelectStatement(query);
-            query = "SELECT * FROM `solidOrder` WHERE `tableId` = " + tableId;
-            ResultSet solidResult = connection.executeSQLSelectStatement(query);
+            ResultSet result_1;
+            String query_1 = "SELECT `ID` FROM `bill` WHERE `table_id` = " + tableId + " AND `is_paid` = 0"; // This results in only the current table being selected as nobody has paid their bill yet
+            result_1 = connection.executeSQLSelectStatement(query_1);
 
-            //Then delete the existing orders in the current table {Make way for the new}
-            query = "DELETE * FROM `liquidOrder` WHERE `tableId` = " + tableId;
-            connection.executeSQLDeleteStatement(query);
-            query = "DELETE * FROM `solidOrder` WHERE `tableId` = " + tableId;
-            connection.executeSQLDeleteStatement(query);
-//Fixing needed, awaiting results from DB council
-//            try {
-//                while (liquidResult.next()) {
-//                    ordersFromTable.add(new Order(liquidResult.getInt("id"), liquidResult.getInt("tableId"), liquidResult.getTime("time"), liquidResult.getString("item"), liquidResult.getInt("status")));
-//                }
-//
-//                while(solidResult.next()) {
-//                    ordersFromTable.add(new Order(solidResult.getInt("id"), solidResult.getInt("tableId"), solidResult.getTime("time"), solidResult.getString("item"), solidResult.getInt("status")));
-//                }
-//
-//                for(Order o : ordersFromTable) {
-//                    query = "INSERT INTO `orderHistory` (`id`, `tableId`, `time`, `item`) VALUES ('" + o.getId() + "', '" + o.getTableId() + "','" + o.getTime() + "','" + o.getItem() + "')"; //Creates the order history
-//                    connection.executeSQLInsertStatement(query);
-//                }
-//            }
-//
-//            catch (SQLException e) {
-//                throw e;
-//            }
+            try {
+                while (result_1.next()) {
+
+                }
+            }
+
+            catch(SQLException e) {
+                throw e;
+            }
         }
 
         return ordersFromTable;
