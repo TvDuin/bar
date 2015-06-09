@@ -1,11 +1,9 @@
-package DataStorageLayer;
+package datastoragelayer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-import EntityLayer.Medewerker;
+import entitylayer.Medewerker;
 
 public class InlogDAO {
 

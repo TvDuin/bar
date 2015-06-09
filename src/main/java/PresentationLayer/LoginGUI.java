@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PresentationLayer;
+package presentationlayer;
 
-//import LogicLayer.OrderManager;
-import LogicLayer.OrderManager;
+//import logiclayer.OrderManager;
+import logiclayer.OrderManager;
 
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 
 /**
  *
@@ -131,15 +127,14 @@ public class LoginGUI extends javax.swing.JFrame {
 
             boolean loginCheck = manager.checkLogin(ID, password);
 
-            if(loginCheck== true){
+            if(loginCheck == true){
                 // Doorsturen naar Voorpagina
                 new JFrameBar().setVisible(true);
                 dispose();
 
             }else{
                 // Foutmelding sturen
-                JOptionPane.showMessageDialog(null, "Id of password is niet goed of uw heeft geen toegang tot dit deelsysteem.", "Melding:", JOptionPane.ERROR_MESSAGE);
-
+                JOptionPane.showMessageDialog(null, "ID of password is niet goed of u heeft geen toegang tot dit deelsysteem.", "Error", JOptionPane.ERROR_MESSAGE);
             }}
 
 

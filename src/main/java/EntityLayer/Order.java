@@ -1,8 +1,5 @@
-package EntityLayer;
+package entitylayer;
 
-import EntityLayer.Item;
-
-import java.util.Date;
 import java.util.Map;
 
 /**

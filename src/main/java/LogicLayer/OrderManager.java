@@ -1,8 +1,8 @@
-package LogicLayer;
+package logiclayer;
 
-import DataStorageLayer.ServingDAO;
-import EntityLayer.*;
-import DataStorageLayer.InlogDAO;
+import datastoragelayer.ServingDAO;
+import entitylayer.*;
+import datastoragelayer.InlogDAO;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -60,7 +60,22 @@ public class OrderManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    return true;
+    return false;
+    }
+
+    public String getDagResultaten(String soort){
+        if(soort == "Dranken"){
+            return "Dranken Datum";
+        }
+        else if(soort == "Gerechten"){
+            return "Gerechten Datum";
+        }
+        else if(soort == "Totaal"){
+            return "Totaal Datum";
+        }
+        else{
+            return "Niks ingevuld.";
+        }
     }
 
 
