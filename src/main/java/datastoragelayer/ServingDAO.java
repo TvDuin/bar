@@ -25,18 +25,18 @@ public class ServingDAO {
         //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
             ResultSet result_1; //query that contains all the ID, tableID and statusses from all available
-            String query = "SELECT `ID`,`table_ID`,`status` FROM `beverage_order` WHERE `status` = 3;"; // 3 = geplaatst
+            String query = "SELECT `ID`,`table_ID`,`status` FROM `beverage_order` WHERE `status` = 1;"; // 3 = geplaatst
             result_1 = connection.executeSQLSelectStatement(query);
 
             try {
                 while (result_1.next()) {
-                    ResultSet result_2; //query that contains
+                    ResultSet result_2;
                     String query2 = "SELECT `beverage_item_ID`,`amount` FROM `beverage_order_item` WHERE `order_ID` = " + result_1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
                     result_2 = connection.executeSQLSelectStatement(query2);
                     Map<Item, Integer> items_tmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
 
                     while (result_2.next()) {
-                        ResultSet result_3; //query that contains
+                        ResultSet result_3;
                         String query3 = "SELECT `name`,`price` FROM `beverage_menu_item` WHERE `ID` = " + result_2.getInt("beverage_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
                         result_3 = connection.executeSQLSelectStatement(query3);
                         //voeg hier de  items toe aan de MAP
@@ -56,21 +56,33 @@ public class ServingDAO {
         return availableOrders;
     }
 
-    public List<Order> retrieveSolids() throws SQLException{
+    public List<Order> retrieveSolids() throws SQLException{ //Awaiting comments from the kitchen staff
         DatabaseConnection connection = new DatabaseConnection();
         List<Order> availableSolidOrders = new ArrayList<Order>();
 
-        //Check for valid connection
+        //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
-            //sql voor informatie uit de database te halen.
-            String query = "SELECT * FROM `SolidOrder`";
-            ResultSet result;
-            //uitkomst van de query wordt hier opgehaald.
-            result = connection.executeSQLSelectStatement(query);
-            //geeft alle uitkomsten terug uit de database.
+            ResultSet result_1; //query that contains all the ID, tableID and statusses from all available
+            String query = "SELECT `ID`,`table_ID`,`status` FROM `dish_order` WHERE `status` = 2 OR `status` = 3;"; // 2 = geaccepteerd, 3 = gereed
+            result_1 = connection.executeSQLSelectStatement(query);
+
             try {
-                while (result.next()) {
-//                    availableSolidOrders.add(new Order(result.getInt("id"), result.getInt("tableId"), result.getTime("time"), result.getString("item"), result.getInt("status")));
+                while (result_1.next()) {
+                    ResultSet result_2;
+                    String query2 = "SELECT `dish_item_ID`,`amount` FROM `dish_order_item` WHERE `order_ID` = " + result_1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
+                    result_2 = connection.executeSQLSelectStatement(query2);
+                    Map<Item, Integer> items_tmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+
+                    while (result_2.next()) {
+                        ResultSet result_3;
+                        String query3 = "SELECT `name`,`price` FROM `dish_menu_item` WHERE `ID` = " + result_2.getInt("dish_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
+                        result_3 = connection.executeSQLSelectStatement(query3);
+                        //voeg hier de  items toe aan de MAP
+                        items_tmp.put(new Item(result_2.getInt("dish_item_ID"), result_3.getString("name"), result_3.getDouble("price")), result_2.getInt("amount"));
+                    }
+
+                    //maak hier order aan
+                    availableSolidOrders.add(new Order(result_1.getInt("ID"), result_1.getInt("table_ID"), items_tmp, result_1.getInt("status")));
                 }
             }
 

@@ -13,7 +13,7 @@ public class Order {
     private int id;
     private int table_ID;
     private Map<Item, Integer> items;
-    private int status; //3 = geplaatst
+    private int status; // Geplaatst = 1, geaccepteerd = 2, gereed = 3, uitgeserveerd = 4
 
     public Order(int id, int table_ID, Map<Item, Integer> items, int status) {
         items = new HashMap<Item, Integer>();
