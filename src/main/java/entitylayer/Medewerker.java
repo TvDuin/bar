@@ -3,28 +3,28 @@ package entitylayer;
 
 
 public class Medewerker {
-	private int id;
-    private String wachtWoord;
+	private String id;
+    private String password;
 	
-	 public Medewerker(int id, String wachtWoord) {
+	 public Medewerker(String id, String password) {
 	        this.id = id;
-	        this.wachtWoord  = wachtWoord;
+	        this.password  = password;
 	    }
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public String getWachtWoord() {
-		return wachtWoord;
+	public String getpassword() {
+		return password;
 	}
 
-	public void setWachtWoord(String wachtWoord) {
-		this.wachtWoord = wachtWoord;
+	public void setpassword(String password) {
+		this.password = password;
 	}
 	 
 }
