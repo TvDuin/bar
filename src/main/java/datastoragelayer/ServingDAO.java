@@ -94,15 +94,19 @@ public class ServingDAO {
         return availableSolidOrders;
     }
 
-    public void addServer(Order order, int serverId) throws SQLException{
+    public void serveOrder(Order order, int serverId) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
+
+        order.setServed(); //Sets the status of the Object (in the application) as served.
 
         //Check for a valid connection
         if(connection.openConnection()) {
             //Insert SQL code here
-            String query = "INSERT INTO `served` (`orderId`, `serverId`) VALUES (" + order.getId() + ", " + serverId + ")"; //Mysql has to auto fill the index of the entry (PK)
+            String query_1 =  "UPDATE `dish_order` SET `status` = 4 WHERE `ID` = " + order.getId();
+            String query_2 =  "UPDATE `beverage_order` SET `status` = 4 WHERE `ID` = " + order.getId();
             try {
-                connection.executeSQLInsertStatement(query);
+                connection.executeSQLInsertStatement(query_1);
+                connection.executeSQLInsertStatement(query_2);
             }
 
             catch(SQLException e) {

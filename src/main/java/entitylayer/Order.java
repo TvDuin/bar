@@ -38,4 +38,8 @@ public class Order {
     public int getStatus() {
         return status;
     }
+
+    public void setServed() {
+        status = 4;
+    }
 }

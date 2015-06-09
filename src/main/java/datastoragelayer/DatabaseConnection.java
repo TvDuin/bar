@@ -144,7 +144,7 @@ public class DatabaseConnection {
             try
             {
                 statement.executeUpdate(query); //what does executeUpdate do? Is this needed or do we need to use another function?
-            } //Also check when POC and LAM are due. VERY IMPORTANT!
+            }
             catch(SQLException e)
             {
                 throw e;
