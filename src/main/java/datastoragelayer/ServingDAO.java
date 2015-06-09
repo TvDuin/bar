@@ -1,10 +1,13 @@
 package datastoragelayer;
 
+import entitylayer.Item;
 import entitylayer.Order;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Thomas on 29-4-2015.
@@ -15,23 +18,33 @@ public class ServingDAO {
     }
 
     //maak een arraykist aan van orders
-    /*public List<Order> retrieveBeverages() throws SQLException{
+    public List<Order> retrieveBeverages() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
-        List<Integer> availableOrders = new ArrayList<Integer>();
+        List<Order> availableOrders = new ArrayList<Order>();
         
         //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
-        //sql voor informatie uit de database te halen.
             ResultSet result_1; //query that contains all the ID, tableID and statusses from all available
-            ResultSet result_1;
-            ResultSet result_1;
-            String query = "SELECT `ID`,`table_ID`,`status` FROM `order` WHERE `status` = 3;"; // 3 = geplaatst
-            //uitkomst van de query wordt hier opgehaald.
+            String query = "SELECT `ID`,`table_ID`,`status` FROM `beverage_order` WHERE `status` = 3;"; // 3 = geplaatst
             result_1 = connection.executeSQLSelectStatement(query);
-            //geeft alle uitkomsten terug uit de database.
+
             try {
                 while (result_1.next()) {
-                    availableOrders.add(new Order(result_1.getInt("ID"), result_1.getInt("table_Id"), result_1.getString("item"), result_1.getInt("status")));
+                    ResultSet result_2; //query that contains
+                    String query2 = "SELECT `beverage_item_ID`,`amount` FROM `beverage_order_item` WHERE `order_ID` = " + result_1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
+                    result_2 = connection.executeSQLSelectStatement(query2);
+                    Map<Item, Integer> items_tmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+
+                    while (result_2.next()) {
+                        ResultSet result_3; //query that contains
+                        String query3 = "SELECT `name`,`price` FROM `beverage_menu_item` WHERE `ID` = " + result_2.getInt("beverage_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
+                        result_3 = connection.executeSQLSelectStatement(query3);
+                        //voeg hier de  items toe aan de MAP
+                        items_tmp.put(new Item(result_2.getInt("beverage_item_ID"), result_3.getString("name"), result_3.getDouble("price")), result_2.getInt("amount"));
+                    }
+
+                    //maak hier order aan
+                    availableOrders.add(new Order(result_1.getInt("ID"), result_1.getInt("table_ID"), items_tmp, result_1.getInt("status")));
                 }
             }
 
@@ -41,7 +54,7 @@ public class ServingDAO {
         }
 
         return availableOrders;
-    }*/
+    }
 
     public List<Order> retrieveSolids() throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();

@@ -1,5 +1,6 @@
 package entitylayer;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,9 +13,10 @@ public class Order {
     private int id;
     private int table_ID;
     private Map<Item, Integer> items;
-    private int status; //1 = geplaatst, 2 = geaccepteerd, 3 = gereed, 4 = uitgeserveerd & 5 = betaald
+    private int status; //3 = geplaatst
 
     public Order(int id, int table_ID, Map<Item, Integer> items, int status) {
+        items = new HashMap<Item, Integer>();
         this.id = id;
         this.table_ID = table_ID;
         this.items = items;

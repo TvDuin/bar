@@ -7,12 +7,11 @@ public class Item {
     private int id;
     private String name;
     private double price;
-    private Boolean isLiquid; //If false: solid.
 
-    public Item(int id, String name, Boolean isLiquid) {
+    public Item(int id, String name, double price) {
         this.id = id;
         this.name = name;
-        this.isLiquid = isLiquid;
+        this.price = price;
     }
 
     public int getId() {
@@ -21,10 +20,6 @@ public class Item {
 
     public String getName() {
         return name;
-    }
-
-    public boolean getIsLiquid() {
-        return isLiquid;
     }
 
     public double getPrice() {
