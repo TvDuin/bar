@@ -18,7 +18,7 @@ public class OrderManager {
     public OrderManager() {
         serving = new ServingDAO();
         login = new InlogDAO();
-        Medewerker Medewerker1= new Medewerker(209331, "hond");
+
     }
 
     //geeft alle servirngs terug uit de de servingDao
@@ -49,18 +49,18 @@ public class OrderManager {
         return serving.setOrderPayedDAO(tableId, EmployeeId);
     }
 
-    public boolean checkLogin(int ID, String password){
+    public boolean checkLogin(String id, String password){
 
         boolean check = false ;
 
         try {
-            if (login.LogIn(ID, password) == true){
+            if (login.LogIn(id, password) == true){
                 check = true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    return false;
+    return check;
     }
 
     public String getDagResultaten(String soort){
