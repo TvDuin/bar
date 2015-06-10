@@ -159,7 +159,7 @@ public class ServingDAO {
 
                     while (result_5.next()) {
                         ResultSet result_6;
-                        String query_6 = "SELECT `dish_item_ID`,`amount` FROM `dish_order_item` WHERE `order_ID` = " + result_1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
+                        String query_6 = "SELECT `dish_item_ID`,`amount` FROM dish_order_item` WHERE `order_ID` = " + result_1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
                         result_6 = connection.executeSQLSelectStatement(query_6);
                         Map<Item, Integer> items_tmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
 
@@ -185,7 +185,7 @@ public class ServingDAO {
 
         return ordersFromTable;
     }
-    public boolean setOrderPayedDAO(int tableId, int EmployeeId) throws SQLException
+    public boolean setOrderPayedDAO(int tableId, int staff_ID) throws SQLException
     {
         DatabaseConnection connection = new DatabaseConnection();
         boolean bool = false;
@@ -193,23 +193,15 @@ public class ServingDAO {
         //gaat kijken of er een connectie bestaat.
         if(connection.openConnection()) {
             //sql voor informatie uit de database te halen.
-            String query = "SELECT * INTO TABLE 2 FROM TABLE 1 WHERE tableId = " + tableId + "";
-            String query2 = "INSERT INTO TABLE 2 (EmployeeId) VALUES ('" + EmployeeId + "')";
-            String query3 = "DELETE * FROM TABLE WHERE tableid = " + tableId;
-            ResultSet result;
-            //uitkomst van de query wordt hier opgehaald.
-            result = connection.executeSQLSelectStatement(query);
-            connection.executeSQLInsertStatement(query2);
-            connection.executeSQLDeleteStatement(query3);
-            //geeft alle uitkomsten terug uit de database.
-            try {
-                if(result.next()) {
-                    bool = true;
-                }
+            ResultSet result_1;
+            ResultSet result_2;
+            String query_1 = "UPDATE `bill` SET `staff_ID` = " + staff_ID + " WHERE `table_id` = " + tableId + " AND is_paid = 0";
+            String query_2 = "UPDATE `bill` SET `is_paid` = 1 WHERE `table_id` = " + tableId + " AND is_paid = 0";
 
-                else {
-                    bool = false;
-                }
+            try {
+                connection.executeSQLInsertStatement(query_1);
+                connection.executeSQLInsertStatement(query_2);
+                bool = true;
             }
             catch (SQLException e) {
                 throw e;

@@ -134,7 +134,7 @@ public class DatabaseConnection {
         return result;
     }
 
-    public void executeSQLInsertStatement(String query) throws SQLException//Executes insert query, returns true when succeeded
+    public void executeSQLInsertStatement(String query) throws SQLException//Executes insert query
     {
         // First, check whether a some query was passed and the connection with
         // the database.
