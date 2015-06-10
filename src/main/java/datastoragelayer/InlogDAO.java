@@ -26,7 +26,7 @@ public class InlogDAO {
         //geeft alle uitkomsten terug uit de database.
         try {
            while (result2.next()) {
-              new Medewerker(result2.getString("login_name"), result2.getString("password"));
+              //new Medewerker(result2.getString("login_name"), result2.getString("password"));
               bool = true;
            }
         } catch (SQLException e) {
