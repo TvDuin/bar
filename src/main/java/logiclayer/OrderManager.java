@@ -45,8 +45,8 @@ public class OrderManager {
         return receipt;
     }
 
-    public boolean setOrderPaid(int tableId, int staff_ID) throws SQLException{
-        return serving.setOrderPaid(tableId, staff_ID);
+    public boolean setOrderPaid(int tableId, int staffID) throws SQLException{
+        return serving.setOrderPaid(tableId, staffID);
     }
 
     public boolean checkLogin(String id, String password){
@@ -54,7 +54,7 @@ public class OrderManager {
         boolean check = false ;
 
         try {
-            if (login.logIn(id, password) == true){
+            if (login.logIn(id, password)){
                 check = true;
             }
         } catch (SQLException e) {
