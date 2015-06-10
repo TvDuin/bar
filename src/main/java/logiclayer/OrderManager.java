@@ -54,7 +54,7 @@ public class OrderManager {
         boolean check = false ;
 
         try {
-            if (login.LogIn(id, password) == true){
+            if (login.logIn(id, password) == true){
                 check = true;
             }
         } catch (SQLException e) {
