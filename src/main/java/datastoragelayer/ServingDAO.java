@@ -185,7 +185,7 @@ public class ServingDAO {
 
         return ordersFromTable;
     }
-    public boolean setOrderPayedDAO(int tableId, int staff_ID) throws SQLException
+    public boolean setOrderPaid(int tableId, int staff_ID) throws SQLException
     {
         DatabaseConnection connection = new DatabaseConnection();
         boolean bool = false;

@@ -45,8 +45,8 @@ public class OrderManager {
         return receipt;
     }
 
-    public boolean setOrderPayed(int tableId, int EmployeeId) throws SQLException{
-        return serving.setOrderPayedDAO(tableId, EmployeeId);
+    public boolean setOrderPaid(int tableId, int staff_ID) throws SQLException{
+        return serving.setOrderPaid(tableId, staff_ID);
     }
 
     public boolean checkLogin(String id, String password){
