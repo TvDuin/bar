@@ -33,18 +33,18 @@ public class ServingDAO {
                     ResultSet result2;
                     String query2 = "SELECT `beverage_item_ID`,`amount` FROM `beverage_order_item` WHERE `order_ID` = " + result1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
                     result2 = connection.executeSQLSelectStatement(query2);
-                    Map<Item, Integer> items_tmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+                    Map<Item, Integer> itemsTmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
 
                     while (result2.next()) {
                         ResultSet result3;
                         String query3 = "SELECT `name`,`price` FROM `beverage_menu_item` WHERE `ID` = " + result2.getInt("beverage_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
                         result3 = connection.executeSQLSelectStatement(query3);
                         //voeg hier de  items toe aan de MAP
-                        items_tmp.put(new Item(result2.getInt("beverage_item_ID"), result3.getString("name"), result3.getDouble("price")), result2.getInt("amount"));
+                        itemsTmp.put(new Item(result2.getInt("beverage_item_ID"), result3.getString("name"), result3.getDouble("price")), result2.getInt("amount"));
                     }
 
                     //maak hier order aan
-                    availableOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), items_tmp, result1.getInt("status")));
+                    availableOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), itemsTmp, result1.getInt("status")));
                 }
             }
 
@@ -71,18 +71,18 @@ public class ServingDAO {
                     ResultSet result2;
                     String query2 = "SELECT `dish_item_ID`,`amount` FROM `dish_order_item` WHERE `order_ID` = " + result1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
                     result2 = connection.executeSQLSelectStatement(query2);
-                    Map<Item, Integer> items_tmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+                    Map<Item, Integer> itemsTmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
 
                     while (result2.next()) {
                         ResultSet result3;
                         String query3 = "SELECT `name`,`price` FROM `dish_menu_item` WHERE `ID` = " + result2.getInt("dish_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
                         result3 = connection.executeSQLSelectStatement(query3);
                         //voeg hier de  items toe aan de MAP
-                        items_tmp.put(new Item(result2.getInt("dish_item_ID"), result3.getString("name"), result3.getDouble("price")), result2.getInt("amount"));
+                        itemsTmp.put(new Item(result2.getInt("dish_item_ID"), result3.getString("name"), result3.getDouble("price")), result2.getInt("amount"));
                     }
 
                     //maak hier order aan
-                    availableSolidOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), items_tmp, result1.getInt("status")));
+                    availableSolidOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), itemsTmp, result1.getInt("status")));
                 }
             }
 
@@ -139,18 +139,18 @@ public class ServingDAO {
                         ResultSet result3;
                         String query3 = "SELECT `beverage_item_ID`,`amount` FROM `beverage_order_item` WHERE `order_ID` = " + result2.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
                         result3 = connection.executeSQLSelectStatement(query3);
-                        Map<Item, Integer> items_tmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+                        Map<Item, Integer> itemsTmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
 
                         while (result3.next()) {
                             ResultSet result4;
                             String query4 = "SELECT `name`,`price` FROM `beverage_menu_item` WHERE `ID` = " + result3.getInt("beverage_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
                             result4 = connection.executeSQLSelectStatement(query4);
                             //voeg hier de  items toe aan de MAP
-                            items_tmp.put(new Item(result3.getInt("beverage_item_ID"), result4.getString("name"), result4.getDouble("price")), result3.getInt("amount"));
+                            itemsTmp.put(new Item(result3.getInt("beverage_item_ID"), result4.getString("name"), result4.getDouble("price")), result3.getInt("amount"));
                         }
 
                         //maak hier order aan
-                        ordersFromTable.add(new Order(result2.getInt("ID"), result2.getInt("table_ID"), items_tmp, result2.getInt("status")));
+                        ordersFromTable.add(new Order(result2.getInt("ID"), result2.getInt("table_ID"), itemsTmp, result2.getInt("status")));
                     }
 
                     ResultSet result5; //query that contains all the ID, tableID and statusses from all available
@@ -161,18 +161,18 @@ public class ServingDAO {
                         ResultSet result6;
                         String query6 = "SELECT `dish_item_ID`,`amount` FROM dish_order_item` WHERE `order_ID` = " + result1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
                         result6 = connection.executeSQLSelectStatement(query6);
-                        Map<Item, Integer> items_tmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+                        Map<Item, Integer> itemsTmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
 
                         while (result6.next()) {
                             ResultSet result7;
                             String query7 = "SELECT `name`,`price` FROM `dish_menu_item` WHERE `ID` = " + result2.getInt("dish_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
                             result7 = connection.executeSQLSelectStatement(query7);
                             //voeg hier de  items toe aan de MAP
-                            items_tmp.put(new Item(result6.getInt("dish_item_ID"), result7.getString("name"), result7.getDouble("price")), result6.getInt("amount"));
+                            itemsTmp.put(new Item(result6.getInt("dish_item_ID"), result7.getString("name"), result7.getDouble("price")), result6.getInt("amount"));
                         }
 
                         //maak hier order aan
-                        ordersFromTable.add(new Order(result5.getInt("ID"), result5.getInt("table_ID"), items_tmp, result5.getInt("status")));
+                        ordersFromTable.add(new Order(result5.getInt("ID"), result5.getInt("table_ID"), itemsTmp, result5.getInt("status")));
                     }
 
                 }
