@@ -11,14 +11,13 @@ import java.util.Map;
 
 public class Order {
     private int id;
-    private int table_ID;
+    private int tableID;
     private Map<Item, Integer> items;
     private int status; // Geplaatst = 1, geaccepteerd = 2, gereed = 3, uitgeserveerd = 4
 
-    public Order(int id, int table_ID, Map<Item, Integer> items, int status) {
-        items = new HashMap<Item, Integer>();
+    public Order(int id, int tableID, Map<Item, Integer> items, int status) {
         this.id = id;
-        this.table_ID = table_ID;
+        this.tableID = tableID;
         this.items = items;
         this.status = status;
     }
@@ -27,8 +26,8 @@ public class Order {
         return id;
     }
 
-    public int getTable_ID() {
-        return table_ID;
+    public int getTableID() {
+        return tableID;
     }
 
     public Map getItems() {
