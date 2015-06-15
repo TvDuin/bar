@@ -42,8 +42,8 @@ public class JFrameBarTest {
     public void testOrderPayed() throws Exception {
 
         try {
-            String expected = "De bestelling van tafel 01 is betaald.";
-            String actual = frame.orderPaid(01, 01);         // frame.orderPayed(int tableID, int EmployeeID);
+            String expected = "De bestelling van tafel 1 is betaald.";
+            String actual = frame.orderPaid(1, 1);         // frame.orderPayed(int tableID, int EmployeeID);
             assertEquals(expected, actual);
         }
         catch (Exception e){
