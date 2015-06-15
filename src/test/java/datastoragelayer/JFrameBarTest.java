@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 
 public class JFrameBarTest {
 
-    private JFrameBar frame;
+    public JFrameBar frame;
 
     public JFrameBarTest() {
     }
@@ -31,7 +31,7 @@ public class JFrameBarTest {
 
     @Before
     public void setUp() {
-        JFrameBar frame = new JFrameBar();
+        frame = new JFrameBar();
     }
 
     @After
