@@ -387,7 +387,7 @@ public class JFrameBar extends javax.swing.JFrame {
 		}
 	}
 
-    private String orderPayed(int tableId, int EmployeeId) throws SQLException
+    public String orderPaid(int tableId, int EmployeeId) throws SQLException
     {
         if (manager.setOrderPaid(tableId, EmployeeId) == true){
             return "De bestelling van tafel " + tableId + " is betaald.";
