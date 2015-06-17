@@ -196,6 +196,9 @@ public class ServingDAO {
             String query1 = "UPDATE `bill` SET `staff_ID` = " + staff_ID + " WHERE `table_id` = " + tableId + " AND is_paid = 0";
             String query2 = "UPDATE `bill` SET `is_paid` = 1 WHERE `table_id` = " + tableId + " AND is_paid = 0";
 
+            System.out.println(query1);
+            System.out.println(query2);
+
             try {
                 connection.executeSQLInsertStatement(query1);
                 connection.executeSQLInsertStatement(query2);
