@@ -44,7 +44,7 @@ public class ServingDAO {
                     }
 
                     //maak hier order aan
-                    //availableOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), itemsTmp, result1.getInt("status")));
+                    availableOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), itemsTmp, result1.getInt("status")));
                 }
             }
 
@@ -82,7 +82,7 @@ public class ServingDAO {
                     }
 
                     //maak hier order aan
-                    //availableSolidOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), itemsTmp, result1.getInt("status")));
+                    availableSolidOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), itemsTmp, result1.getInt("status")));
                 }
             }
 
@@ -150,7 +150,7 @@ public class ServingDAO {
                         }
 
                         //maak hier order aan
-                       //ordersFromTable.add(new Order(result2.getInt("ID"), result2.getInt("table_ID"), itemsTmp, result2.getInt("status")));
+                        ordersFromTable.add(new Order(result2.getInt("ID"), result2.getInt("table_ID"), itemsTmp, result2.getInt("status")));
                     }
 
                     ResultSet result5; //query that contains all the ID, tableID and statusses from all available
@@ -172,7 +172,7 @@ public class ServingDAO {
                         }
 
                         //maak hier order aan
-                        //ordersFromTable.add(new Order(result5.getInt("ID"), result5.getInt("table_ID"), itemsTmp, result5.getInt("status")));
+                        ordersFromTable.add(new Order(result5.getInt("ID"), result5.getInt("table_ID"), itemsTmp, result5.getInt("status")));
                     }
 
                 }

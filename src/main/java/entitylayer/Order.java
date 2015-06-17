@@ -13,16 +13,12 @@ public class Order {
     private int id;
     private int tableID;
     private Map<Item, Integer> items;
-    private Item item;
-    private int quantity;
     private int status; // Geplaatst = 1, geaccepteerd = 2, gereed = 3, uitgeserveerd = 4
 
-    public Order(int id, int tableID, Item item, int quantity ,int status) {
+    public Order(int id, int tableID, Map<Item, Integer> items, int status) {
         this.id = id;
         this.tableID = tableID;
-        this.item = item;
-        this.quantity = quantity;
-        //this.items = items;
+        this.items = items;
         this.status = status;
     }
 
@@ -33,10 +29,6 @@ public class Order {
     public int getTableID() {
         return tableID;
     }
-
-    public Item getItem(){ return item; }
-
-    public int getQuantity(){ return quantity; }
 
     public Map getItems() {
         return items;
