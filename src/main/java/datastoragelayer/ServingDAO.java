@@ -17,51 +17,18 @@ import java.util.Map;
  */
 public class ServingDAO {
 
-    public class Beverage_order { //Using a C++ Struct-like construction here. (No methods only attributes (and constructor). Since a constructor is not defined as a method using one is allowed).
-        public int ID;
-        public int table_id;
-        public int status;
-        public ArrayList<Beverage_order_item> items;
-
-        public Beverage_order(int ID, int table_id, int status, ) {
-            this.ID = ID;
-            this.table_id = table_id;
-            this.status = status;
-        }
-    }
-
-    public class Beverage_order_item { //Using a C++ Struct-like construction here. (No methods only attributes (and constructor). Since a constructor is not defined as a method using one is allowed).
-        public int beverage_item_ID;
-        public int amount;
-
-        public Beverage_order_item(int beverage_item_ID, int amount) {
-            this.beverage_item_ID = beverage_item_ID;
-            this.amount = amount;
-        }
-    }
-
-    public class Beverage_menu_item { //Using a C++ Struct-like construction here. (No methods only attributes (and constructor). Since a constructor is not defined as a method using one is allowed).
-        public String name;
-        public int price;
-
-        public Beverage_menu_item(String name, int price) {
-            this.name = name;
-            this.price = price;
-        }
-    }
-
     public ServingDAO(){
         //Nothing to see here
     }
 
-    public List<Order> retrieveBeverageOrders(int status) throws SQLException { //retrieves orders by status, either 1 or 3
+    public List<Order> retrieveOrders(int status, String type) throws SQLException { //retrieves orders by status and, either 1 or 3, and either beverage or dish
         DatabaseConnection connection = new DatabaseConnection();
         List<Order> availableOrders = new ArrayList<Order>();
 
         if(connection.openConnection()) {
             try {
                 ResultSet result1; //query that contains all the ID, tableID and statusses from all available
-                String query = "SELECT `ID`,`table_ID`,`status` FROM `beverage_order` WHERE `status` = " + status + ";"; // 1 = geplaatst
+                String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `status` = " + status + ";"; // 1 = geplaatst
                 result1 = connection.executeSQLSelectStatement(query);
 
                 while(result1.next()) {
@@ -90,7 +57,7 @@ public class ServingDAO {
 
                 while(result.next()) {
                     //fill hashmap here using a the result of the join statement
-                    items.put(new Item(result.getInt("beverage_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount")));
+                    items.put(new Item(result.getInt("beverage_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount"));
                 }
             }
             catch(SQLException e) {
@@ -99,6 +66,33 @@ public class ServingDAO {
         }
         return items;
     }
+
+    public Map<Item, Integer> getDishItems(int id) throws SQLException { //Retrieves the items that belong to one order
+        DatabaseConnection connection = new DatabaseConnection();
+        Map<Item, Integer> items = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+
+        if(connection.openConnection()) {
+            try {
+                ResultSet result;
+                //Combining two queries here.
+                String query = "SELECT dish_order_item.dish_item_ID, dish_order_item.amount, dish_menu_item.name, dish_menu_item.price " +
+                        "FROM dish_order_item INNER JOIN dish_menu_item ON dish_order_item.dish_item_ID = dish_menu_item.ID " +
+                        "WHERE dish_order_item.order_ID = " + id;
+                result = connection.executeSQLSelectStatement(query);
+
+                while(result.next()) {
+                    //fill hashmap here using a the result of the join statement
+                    items.put(new Item(result.getInt("dish_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount"));
+                }
+            }
+            catch(SQLException e) {
+                throw e;
+            }
+        }
+        return items;
+    }
+
+
 
     public List<Order> retrieveSolids() throws SQLException{ //Awaiting comments from the kitchen staff
         DatabaseConnection connection = new DatabaseConnection();

@@ -28,7 +28,7 @@ public class OrderManager {
 
     //geeft alle servings terug uit de de servingDao
     public List<Order> getAllLiquidOrders() throws SQLException{
-        availableBeverageOrders = serving.retrieveBeverageOrders(1);
+        availableBeverageOrders = serving.retrieveOrders(1, "beverage");
         for(Order o : availableBeverageOrders) {
             o.addItem(serving.getBeverageItems(o.getId()));
         }
@@ -36,7 +36,11 @@ public class OrderManager {
     }
 
     public List<Order> getAllSolidOrders() throws SQLException {
-        return serving.retrieveSolids();
+        availableDishOrders = serving.retrieveOrders(1, "dish");
+        for(Order o : availableDishOrders) {
+            o.addItem(serving.getDishItems(o.getId()));
+        }
+        return availableDishOrders;
     }
 
     public void serveOrder(Order order, int serverId) throws SQLException{
