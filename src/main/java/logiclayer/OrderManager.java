@@ -34,9 +34,9 @@ public class OrderManager {
         serving.serveOrder(order, serverId);
     }
 
-    public Receipt returnReceipt(int tabbleId) throws SQLException{
+    public Receipt returnReceipt(int tableId) throws SQLException{
         Receipt receipt = new Receipt();
-        for(Order o : serving.retrieveAllFromTable(tabbleId)) {
+        for(Order o : serving.retrieveAllFromTable(tableId)) {
             receipt.addOrder(o);
         }
 
