@@ -47,9 +47,31 @@ public class OrderManager {
         serving.serveOrder(order, serverId);
     }
 
+    public List<Order> retrieveAllFromTable(int tableID) throws SQLException {
+        int billID = serving.getBillID(tableID);
+        List<Order> tmpList = new ArrayList<Order>();
+        List<Order> allOrders = new ArrayList<Order>();
+
+        tmpList = serving.retrieveOrdersByID(billID, "beverage");
+
+        for(Order o : tmpList) {
+            o.addItem(serving.getBeverageItems(o.getId()));
+        }
+
+        allOrders.addAll(tmpList);
+
+        tmpList = serving.retrieveOrdersByID(billID, "dish");
+
+        for(Order o : tmpList) {
+            o.addItem(serving.getDishItems(o.getId()));
+        }
+
+        return allOrders;
+    }
+
     public Receipt returnReceipt(int tableId) throws SQLException{
         Receipt receipt = new Receipt();
-        for(Order o : serving.retrieveAllFromTable(tableId)) {
+        for(Order o : retrieveAllFromTable(tableId)) {
             receipt.addOrder(o);
         }
 

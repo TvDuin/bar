@@ -472,7 +472,7 @@ public class JFrameBar extends javax.swing.JFrame {
         String item = "";
         String quantity = "";
 
-        for (Order l : manager.getAllLiquidOrders()) {
+        for (Order l : manager.getAllSolidOrders()) {
             items = l.getItems();
 
             for(Map.Entry<Item, Integer> entry : items.entrySet()) {

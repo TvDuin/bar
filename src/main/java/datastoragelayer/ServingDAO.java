@@ -21,6 +21,27 @@ public class ServingDAO {
         //Nothing to see here
     }
 
+    public int getBillID(int table_id) throws SQLException{
+        DatabaseConnection connection = new DatabaseConnection();
+        int billID = 0;
+
+        if(connection.openConnection()) {
+            try {
+                ResultSet result1;
+                String query = "SELECT `ID` FROM `bill` WHERE `table_id` = " + table_id + " AND `is_paid` = 0;";
+                result1 = connection.executeSQLSelectStatement(query);
+
+                while(result1.next()) {
+                    billID = result1.getInt("ID");
+                }
+            }
+            catch(SQLException e) {
+                throw e;
+            }
+        }
+        return billID;
+    }
+
     public List<Order> retrieveOrders(int status, String type) throws SQLException { //retrieves orders by status and, either 1 or 3, and either beverage or dish
         DatabaseConnection connection = new DatabaseConnection();
         List<Order> availableOrders = new ArrayList<Order>();
@@ -29,6 +50,27 @@ public class ServingDAO {
             try {
                 ResultSet result1; //query that contains all the ID, tableID and statusses from all available
                 String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `status` = " + status + ";"; // 1 = geplaatst
+                result1 = connection.executeSQLSelectStatement(query);
+
+                while(result1.next()) {
+                    availableOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), result1.getInt("status")));
+                }
+            }
+            catch(SQLException e) {
+                throw e;
+            }
+        }
+        return availableOrders;
+    }
+
+    public List<Order> retrieveOrdersByID(int id, String type) throws SQLException { //retrieves orders by id
+        DatabaseConnection connection = new DatabaseConnection();
+        List<Order> availableOrders = new ArrayList<Order>();
+
+        if(connection.openConnection()) {
+            try {
+                ResultSet result1; //query that contains all the ID, tableID and statusses from all available
+                String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `ID` = " + id + ";";
                 result1 = connection.executeSQLSelectStatement(query);
 
                 while(result1.next()) {
@@ -92,46 +134,6 @@ public class ServingDAO {
         return items;
     }
 
-
-
-    public List<Order> retrieveSolids() throws SQLException{ //Awaiting comments from the kitchen staff
-        DatabaseConnection connection = new DatabaseConnection();
-        List<Order> availableSolidOrders = new ArrayList<Order>();
-
-        //gaat kijken of er een connectie bestaat.
-        if(connection.openConnection()) {
-            ResultSet result1; //query that contains all the ID, tableID and statusses from all available
-            String query = "SELECT `ID`,`table_ID`,`status` FROM `dish_order` WHERE `status` = 2 OR `status` = 3;"; // 2 = geaccepteerd, 3 = gereed
-            result1 = connection.executeSQLSelectStatement(query);
-
-            try {
-                while (result1.next()) {
-                    ResultSet result2;
-                    String query2 = "SELECT `dish_item_ID`,`amount` FROM `dish_order_item` WHERE `order_ID` = " + result1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
-                    result2 = connection.executeSQLSelectStatement(query2);
-                    Map<Item, Integer> itemsTmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
-
-                    while (result2.next()) {
-                        ResultSet result3;
-                        String query3 = "SELECT `name`,`price` FROM `dish_menu_item` WHERE `ID` = " + result2.getInt("dish_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
-                        result3 = connection.executeSQLSelectStatement(query3);
-                        //voeg hier de  items toe aan de MAP
-                        itemsTmp.put(new Item(result2.getInt("dish_item_ID"), result3.getString("name"), result3.getInt("price"), result2.getInt("amount")), result2.getInt("amount"));
-                    }
-
-                    //maak hier order aan
-                    availableSolidOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), itemsTmp, result1.getInt("status")));
-                }
-            }
-
-            catch (SQLException e) {
-                throw e;
-            }
-        }
-
-        return availableSolidOrders;
-    }
-
     public void serveOrder(Order order, int serverId) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
 
@@ -156,73 +158,7 @@ public class ServingDAO {
             }
         }
     }
-
-    public List<Order> retrieveAllFromTable(int tableId) throws SQLException{ //Do we need to also include server ID in order history?
-        DatabaseConnection connection = new DatabaseConnection();
-        List<Order> ordersFromTable = new ArrayList<Order>();
-
-        //Check for valid connection
-        if(connection.openConnection()) {
-            ResultSet result1;
-            String query1 = "SELECT `ID` FROM `bill` WHERE `table_id` = " + tableId + " AND `is_paid` = 0"; // This results in only the current table being selected as nobody has paid their bill yet
-            result1 = connection.executeSQLSelectStatement(query1);
-
-            try {
-                while (result1.next()) {
-                    ResultSet result2; //query that contains all the ID, tableID and statusses from all available
-                    String query2 = "SELECT `ID`,`table_ID`,`status` FROM `beverage_order` WHERE `bill_ID` = " + result1; //
-                    result2 = connection.executeSQLSelectStatement(query2);
-
-                    while (result2.next()) {
-                        ResultSet result3;
-                        String query3 = "SELECT `beverage_item_ID`,`amount` FROM `beverage_order_item` WHERE `order_ID` = " + result2.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
-                        result3 = connection.executeSQLSelectStatement(query3);
-                        Map<Item, Integer> itemsTmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
-
-                        while (result3.next()) {
-                            ResultSet result4;
-                            String query4 = "SELECT `name`,`price` FROM `beverage_menu_item` WHERE `ID` = " + result3.getInt("beverage_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
-                            result4 = connection.executeSQLSelectStatement(query4);
-                            //voeg hier de  items toe aan de MAP
-                            itemsTmp.put(new Item(result3.getInt("beverage_item_ID"), result4.getString("name"), result4.getInt("price"), result2.getInt("amount")), result3.getInt("amount"));
-                        }
-
-                        //maak hier order aan
-                        ordersFromTable.add(new Order(result2.getInt("ID"), result2.getInt("table_ID"), itemsTmp, result2.getInt("status")));
-                    }
-
-                    ResultSet result5; //query that contains all the ID, tableID and statusses from all available
-                    String query5 = "SELECT `ID`,`table_ID`,`status` FROM `dish_order` WHERE `status` = 2 OR `status` = 3;"; // 2 = geaccepteerd, 3 = gereed
-                    result5 = connection.executeSQLSelectStatement(query5);
-
-                    while (result5.next()) {
-                        ResultSet result6;
-                        String query6 = "SELECT `dish_item_ID`,`amount` FROM dish_order_item` WHERE `order_ID` = " + result1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
-                        result6 = connection.executeSQLSelectStatement(query6);
-                        Map<Item, Integer> itemsTmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
-
-                        while (result6.next()) {
-                            ResultSet result7;
-                            String query7 = "SELECT `name`,`price` FROM `dish_menu_item` WHERE `ID` = " + result2.getInt("dish_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
-                            result7 = connection.executeSQLSelectStatement(query7);
-                            //voeg hier de  items toe aan de MAP
-                            itemsTmp.put(new Item(result6.getInt("dish_item_ID"), result7.getString("name"), result7.getInt("price"), result2.getInt("amount")), result6.getInt("amount"));
-                        }
-
-                        //maak hier order aan
-                        ordersFromTable.add(new Order(result5.getInt("ID"), result5.getInt("table_ID"), itemsTmp, result5.getInt("status")));
-                    }
-
-                }
-            }
-
-            catch(SQLException e) {
-                throw e;
-            }
-        }
-
-        return ordersFromTable;
-    }
+    
 
     public boolean setOrderPaid(int tableId, int staff_ID) throws SQLException
     {
@@ -234,9 +170,6 @@ public class ServingDAO {
             //sql voor informatie uit de database te halen.
             String query1 = "UPDATE `bill` SET `staff_ID` = " + staff_ID + " WHERE `table_id` = " + tableId + " AND is_paid = 0";
             String query2 = "UPDATE `bill` SET `is_paid` = 1 WHERE `table_id` = " + tableId + " AND is_paid = 0";
-
-            System.out.println(query1);
-            System.out.println(query2);
 
             try {
                 connection.executeSQLInsertStatement(query1);
