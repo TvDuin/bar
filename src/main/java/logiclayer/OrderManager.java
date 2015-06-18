@@ -4,7 +4,9 @@ import datastoragelayer.ServingDAO;
 import entitylayer.*;
 import datastoragelayer.InlogDAO;
 
+import java.lang.reflect.Array;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,19 +65,30 @@ public class OrderManager {
     return check;
     }
 
-    public String getDagResultaten(String soort){
-        if(soort == "Dranken"){
-            return "Dranken Datum";
+    public String getDagResultaten(String soort, String datum) throws SQLException{
+        List<Integer> tempList = new ArrayList<Integer>();
+
+        try {
+            tempList = serving.getDayResults(datum);
+
+            if(soort == "Dranken"){
+                return "€" + tempList.get(1);
+            }
+            else if(soort == "Gerechten"){
+                return "€" + tempList.get(2);
+            }
+            else if(soort == "Totaal"){
+                return "€" + tempList.get(3);
+            }
+            else{
+                return "Geen Datum ingevuld!";
+            }
         }
-        else if(soort == "Gerechten"){
-            return "Gerechten Datum";
+
+        catch (SQLException e) {
+            throw e;
         }
-        else if(soort == "Totaal"){
-            return "Totaal Datum";
-        }
-        else{
-            return "Niks ingevuld.";
-        }
+
     }
 
 
