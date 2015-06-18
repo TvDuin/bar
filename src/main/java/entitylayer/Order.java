@@ -12,13 +12,13 @@ import java.util.Map;
 public class Order {
     private int id;
     private int tableID;
-    private Map<Item, Integer> items;
     private int status; // Geplaatst = 1, geaccepteerd = 2, gereed = 3, uitgeserveerd = 4
+    private Map<Item, Integer> items;
 
-    public Order(int id, int tableID, Map<Item, Integer> items, int status) {
+    public Order(int id, int tableID, int status) {
         this.id = id;
         this.tableID = tableID;
-        this.items = items;
+        items = null;
         this.status = status;
     }
 
@@ -32,6 +32,10 @@ public class Order {
 
     public Map getItems() {
         return items;
+    }
+
+    public void addItem(Map<Item, Integer> items) {
+        this.items = items;
     }
 
     public int getStatus() {

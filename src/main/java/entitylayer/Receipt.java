@@ -52,7 +52,7 @@ public class Receipt {
         totalPrice = 0;
 
         for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-            totalPrice += (Double)(entry.getKey().getPrice() * entry.getValue());
+            totalPrice += (entry.getKey().getPrice() * entry.getValue());
         }
     }
 

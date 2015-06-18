@@ -15,17 +15,24 @@ import java.util.List;
 public class OrderManager {
     private ServingDAO serving;
     private InlogDAO login;
+    private List<Order> availableBeverageOrders;
+    private List<Order> availableDishOrders;
 
     //Serving is an instance off servingDAO
     public OrderManager() {
         serving = new ServingDAO();
         login = new InlogDAO();
-
+        availableBeverageOrders = new ArrayList<Order>();
+        availableDishOrders = new ArrayList<Order>();
     }
 
-    //geeft alle servirngs terug uit de de servingDao
+    //geeft alle servings terug uit de de servingDao
     public List<Order> getAllLiquidOrders() throws SQLException{
-        return serving.retrieveBeverages();
+        availableBeverageOrders = serving.retrieveBeverageOrders(1);
+        for(Order o : availableBeverageOrders) {
+            o.addItem(serving.getBeverageItems(o.getId()));
+        }
+        return availableBeverageOrders;
     }
 
     public List<Order> getAllSolidOrders() throws SQLException {

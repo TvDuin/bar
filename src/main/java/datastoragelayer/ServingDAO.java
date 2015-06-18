@@ -3,6 +3,7 @@ package datastoragelayer;
 import entitylayer.Item;
 import entitylayer.Order;
 
+import javax.xml.crypto.Data;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,47 +16,88 @@ import java.util.Map;
  * Created by Thomas on 29-4-2015.
  */
 public class ServingDAO {
+
+    public class Beverage_order { //Using a C++ Struct-like construction here. (No methods only attributes (and constructor). Since a constructor is not defined as a method using one is allowed).
+        public int ID;
+        public int table_id;
+        public int status;
+        public ArrayList<Beverage_order_item> items;
+
+        public Beverage_order(int ID, int table_id, int status, ) {
+            this.ID = ID;
+            this.table_id = table_id;
+            this.status = status;
+        }
+    }
+
+    public class Beverage_order_item { //Using a C++ Struct-like construction here. (No methods only attributes (and constructor). Since a constructor is not defined as a method using one is allowed).
+        public int beverage_item_ID;
+        public int amount;
+
+        public Beverage_order_item(int beverage_item_ID, int amount) {
+            this.beverage_item_ID = beverage_item_ID;
+            this.amount = amount;
+        }
+    }
+
+    public class Beverage_menu_item { //Using a C++ Struct-like construction here. (No methods only attributes (and constructor). Since a constructor is not defined as a method using one is allowed).
+        public String name;
+        public int price;
+
+        public Beverage_menu_item(String name, int price) {
+            this.name = name;
+            this.price = price;
+        }
+    }
+
     public ServingDAO(){
         //Nothing to see here
     }
 
-    //maak een arraykist aan van orders
-    public List<Order> retrieveBeverages() throws SQLException{
+    public List<Order> retrieveBeverageOrders(int status) throws SQLException { //retrieves orders by status, either 1 or 3
         DatabaseConnection connection = new DatabaseConnection();
         List<Order> availableOrders = new ArrayList<Order>();
-        
-        //gaat kijken of er een connectie bestaat.
+
         if(connection.openConnection()) {
-            ResultSet result1; //query that contains all the ID, tableID and statusses from all available
-            String query = "SELECT `ID`,`table_ID`,`status` FROM `beverage_order` WHERE `status` = 1;"; // 3 = geplaatst
-            result1 = connection.executeSQLSelectStatement(query);
-
             try {
-                while (result1.next()) {
-                    ResultSet result2;
-                    String query2 = "SELECT `beverage_item_ID`,`amount` FROM `beverage_order_item` WHERE `order_ID` = " + result1.getInt("ID") + ";"; // Retrieves all the different items + correct amounts that are linked to the given ID.
-                    result2 = connection.executeSQLSelectStatement(query2);
-                    Map<Item, Integer> itemsTmp = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+                ResultSet result1; //query that contains all the ID, tableID and statusses from all available
+                String query = "SELECT `ID`,`table_ID`,`status` FROM `beverage_order` WHERE `status` = " + status + ";"; // 1 = geplaatst
+                result1 = connection.executeSQLSelectStatement(query);
 
-                    while (result2.next()) {
-                        ResultSet result3;
-                        String query3 = "SELECT `name`,`price` FROM `beverage_menu_item` WHERE `ID` = " + result2.getInt("beverage_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
-                        result3 = connection.executeSQLSelectStatement(query3);
-                        //voeg hier de  items toe aan de MAP
-                        itemsTmp.put(new Item(result2.getInt("beverage_item_ID"), result3.getString("name"), result3.getDouble("price")), result2.getInt("amount"));
-                    }
-
-                    //maak hier order aan
-                    availableOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), itemsTmp, result1.getInt("status")));
+                while(result1.next()) {
+                    availableOrders.add(new Order(result1.getInt("ID"), result1.getInt("table_ID"), result1.getInt("status")));
                 }
             }
-
-            catch (SQLException e) {
+            catch(SQLException e) {
                 throw e;
             }
         }
-
         return availableOrders;
+    }
+
+    public Map<Item, Integer> getBeverageItems(int id) throws SQLException { //Retrieves the items that belong to one order
+        DatabaseConnection connection = new DatabaseConnection();
+        Map<Item, Integer> items = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+
+        if(connection.openConnection()) {
+            try {
+                ResultSet result;
+                //Combining two queries here.
+                String query = "SELECT beverage_order_item.beverage_item_ID, beverage_order_item.amount, beverage_menu_item.name, beverage_menu_item.price " +
+                        "FROM beverage_order_item INNER JOIN beverage_menu_item ON beverage_order_item.beverage_item_ID = beverage_menu_item.ID " +
+                        "WHERE beverage_order_item.order_ID = " + id;
+                result = connection.executeSQLSelectStatement(query);
+
+                while(result.next()) {
+                    //fill hashmap here using a the result of the join statement
+                    items.put(new Item(result.getInt("beverage_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount")));
+                }
+            }
+            catch(SQLException e) {
+                throw e;
+            }
+        }
+        return items;
     }
 
     public List<Order> retrieveSolids() throws SQLException{ //Awaiting comments from the kitchen staff
@@ -80,7 +122,7 @@ public class ServingDAO {
                         String query3 = "SELECT `name`,`price` FROM `dish_menu_item` WHERE `ID` = " + result2.getInt("dish_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
                         result3 = connection.executeSQLSelectStatement(query3);
                         //voeg hier de  items toe aan de MAP
-                        itemsTmp.put(new Item(result2.getInt("dish_item_ID"), result3.getString("name"), result3.getDouble("price")), result2.getInt("amount"));
+                        itemsTmp.put(new Item(result2.getInt("dish_item_ID"), result3.getString("name"), result3.getInt("price"), result2.getInt("amount")), result2.getInt("amount"));
                     }
 
                     //maak hier order aan
@@ -148,7 +190,7 @@ public class ServingDAO {
                             String query4 = "SELECT `name`,`price` FROM `beverage_menu_item` WHERE `ID` = " + result3.getInt("beverage_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
                             result4 = connection.executeSQLSelectStatement(query4);
                             //voeg hier de  items toe aan de MAP
-                            itemsTmp.put(new Item(result3.getInt("beverage_item_ID"), result4.getString("name"), result4.getDouble("price")), result3.getInt("amount"));
+                            itemsTmp.put(new Item(result3.getInt("beverage_item_ID"), result4.getString("name"), result4.getInt("price"), result2.getInt("amount")), result3.getInt("amount"));
                         }
 
                         //maak hier order aan
@@ -170,7 +212,7 @@ public class ServingDAO {
                             String query7 = "SELECT `name`,`price` FROM `dish_menu_item` WHERE `ID` = " + result2.getInt("dish_item_ID") + ";"; // Retrieves all the names that are linked to the given beverage_item_ID.
                             result7 = connection.executeSQLSelectStatement(query7);
                             //voeg hier de  items toe aan de MAP
-                            itemsTmp.put(new Item(result6.getInt("dish_item_ID"), result7.getString("name"), result7.getDouble("price")), result6.getInt("amount"));
+                            itemsTmp.put(new Item(result6.getInt("dish_item_ID"), result7.getString("name"), result7.getInt("price"), result2.getInt("amount")), result6.getInt("amount"));
                         }
 
                         //maak hier order aan
