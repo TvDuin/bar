@@ -158,7 +158,7 @@ public class ServingDAO {
             }
         }
     }
-    
+
 
     public boolean setOrderPaid(int tableId, int staff_ID) throws SQLException
     {
@@ -170,7 +170,7 @@ public class ServingDAO {
             //sql voor informatie uit de database te halen.
             String query1 = "UPDATE `bill` SET `staff_ID` = " + staff_ID + " WHERE `table_id` = " + tableId + " AND is_paid = 0";
             String query2 = "UPDATE `bill` SET `is_paid` = 1 WHERE `table_id` = " + tableId + " AND is_paid = 0";
-
+            
             try {
                 connection.executeSQLInsertStatement(query1);
                 connection.executeSQLInsertStatement(query2);
