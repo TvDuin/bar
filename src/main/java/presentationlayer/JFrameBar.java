@@ -435,11 +435,11 @@ public class JFrameBar extends javax.swing.JFrame {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            /*try {
+            try {
                 loadDataSolids();
             } catch (SQLException e) {
                 e.printStackTrace();
-            }*/
+            }
         }
 
         private void updateTables(){
@@ -448,29 +448,40 @@ public class JFrameBar extends javax.swing.JFrame {
     
         private void loadDataLiquids() throws SQLException
         {
-            System.out.println("Loaddataliquids");
-		DefaultTableModel modelDranken = (DefaultTableModel) jTable1.getModel();
+            DefaultTableModel modelDranken = (DefaultTableModel) jTable1.getModel();
+            String item = "";
+            String quantity = "";
 
-		for (Order l : manager.getAllLiquidOrders()) {
 
-            /*for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-                item = (entry.getKey());
-            }*/
+            for (Order l : manager.getAllLiquidOrders()) {
+                items = l.getItems();
 
-			modelDranken.addRow(new Object[]{ l.getId(), l.getTableID() , l.getStatus() });
-            System.out.println(l);
-		}
+                for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+                    item = entry.getKey().toString();
+                    quantity = entry.getValue().toString();
+                }
 
-            System.out.println("End");
+                modelDranken.addRow(new Object[]{l.getId(), l.getTableID(), item, quantity, l.getStatus()});
+            }
 	}
     
     private void loadDataSolids() throws SQLException
     {
-		DefaultTableModel modelSolids = (DefaultTableModel) jTable3.getModel();
+        DefaultTableModel modelSolids = (DefaultTableModel) jTable3.getModel();
 
-		for (Order s : this.manager.getAllSolidOrders()) {
-			modelSolids.addRow(new Object[]{ s });
-		}
+        String item = "";
+        String quantity = "";
+
+        for (Order l : manager.getAllLiquidOrders()) {
+            items = l.getItems();
+
+            for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+                item = entry.getKey().toString();
+                quantity = entry.getValue().toString();
+            }
+
+            modelSolids.addRow(new Object[]{ l.getId(), l.getTableID(), item, quantity, l.getStatus() });
+        }
 	}
 
     private void loadTables() throws SQLException
