@@ -507,9 +507,9 @@ public class JFrameBar extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException{//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
             //refresh button dagoverzicht
-        jTextField1.setText(manager.getDagResultaten("Dranken", jFormattedTextField1.getText()));
-        jTextField2.setText(manager.getDagResultaten("Gerechten", jFormattedTextField2.getText()));
-        jTextField3.setText(manager.getDagResultaten("Totaal", jFormattedTextField3.getText()));
+        jTextField1.setText(manager.getDayResults("Dranken", jFormattedTextField1.getText()));
+        jTextField2.setText(manager.getDayResults("Gerechten", jFormattedTextField2.getText()));
+        jTextField3.setText(manager.getDayResults("Totaal", jFormattedTextField3.getText()));
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

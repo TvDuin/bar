@@ -8,6 +8,7 @@ import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Thomas on 29-4-2015.
@@ -98,30 +99,47 @@ public class OrderManager {
     return check;
     }
 
-    public String getDagResultaten(String soort, String datum) throws SQLException{
-        List<Integer> tempList = new ArrayList<Integer>();
+    public String getDayResults(String soort, String date) throws SQLException{
+        List<Order> tmpList = new ArrayList<Order>();
+        List<Integer> billIDs = serving.getAllPaidBills(date);
+        int beverageTotal = 0;
+        int dishTotal = 0;
+        int total = 0;
 
-        try {
-            tempList = serving.getDayResults(datum);
+        for(Integer ID : billIDs) {
+            tmpList = serving.retrieveOrdersByID(ID, "beverage");
 
-            if(soort == "Dranken"){
-                return "€" + tempList.get(1);
-            }
-            else if(soort == "Gerechten"){
-                return "€" + tempList.get(2);
-            }
-            else if(soort == "Totaal"){
-                return "€" + tempList.get(3);
-            }
-            else{
-                return "Geen Datum ingevuld!";
+            for(Order o : tmpList) {
+                for(Map.Entry<Item, Integer> entry : serving.getBeverageItems(o.getId()).entrySet()) {
+                    beverageTotal += (entry.getKey().getPrice() * entry.getValue());
+                }
             }
         }
 
-        catch (SQLException e) {
-            throw e;
+        for(Integer ID : billIDs) {
+            tmpList = serving.retrieveOrdersByID(ID, "dish");
+
+            for(Order o : tmpList) {
+                for(Map.Entry<Item, Integer> entry : serving.getDishItems(o.getId()).entrySet()) {
+                    beverageTotal += (entry.getKey().getPrice() * entry.getValue());
+                }
+            }
         }
 
+        total = beverageTotal + dishTotal;
+
+        if(soort == "Dranken"){
+            return "€" + beverageTotal;
+        }
+        else if(soort == "Gerechten"){
+            return "€" + dishTotal;
+        }
+        else if(soort == "Totaal"){
+            return "€" + total;
+        }
+        else{
+            return "Geen Datum ingevuld!";
+        }
     }
 }
 
