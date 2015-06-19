@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -429,40 +430,59 @@ public class JFrameBar extends javax.swing.JFrame {
         });
     }
 
-        private void updateOrders(){
-            try {
-                loadDataLiquids();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
-                loadDataSolids();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+    private void updateOrders(){
+        try {
+            loadDataLiquids();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        private void updateTables(){
-            //loadTables();
+        try {
+            loadDataSolids();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    
-        private void loadDataLiquids() throws SQLException
-        {
-            DefaultTableModel modelDranken = (DefaultTableModel) jTable1.getModel();
-            String item = "";
-            String quantity = "";
+    }
 
+    private void updateTables(){
+        //loadTables();
+    }
 
-            for (Order l : manager.getAllLiquidOrders()) {
-                items = l.getItems();
+    public void deleteAllRows(DefaultTableModel model) {
+        for( int i = model.getRowCount() - 1; i >= 0; i-- ) {
+            model.removeRow(i);
+        }
+    }
 
-                for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-                    item = entry.getKey().toString();
-                    quantity = entry.getValue().toString();
-                }
+    private void loadDataLiquids() throws SQLException
+    {
+        DefaultTableModel modelDranken = (DefaultTableModel) jTable1.getModel();
+        ArrayList<String> order = new ArrayList<String>();
+        String quantity = "";
+        String tmporder = "";
 
-                modelDranken.addRow(new Object[]{l.getId(), l.getTableID(), item, quantity, l.getStatus()});
+        modelDranken.setRowCount(0);
+        for (Order l : manager.getAllLiquidOrders()) {
+            items = l.getItems();
+            tmporder = "";
+            order.clear();
+
+            for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+                order.add(entry.getKey().getName());
+                System.out.println(entry.getKey().getName());//sdssssssssssss
+                quantity = entry.getValue().toString();
+
+                modelDranken.addRow(new Object[]{l.getId(), l.getTableID(), entry.getValue() + " " + entry.getKey().getName() + ", "});
             }
+
+            for(String item : order) {
+                System.out.println(item);//sdddddddddddddddddd
+                tmporder += item + ", ";
+            }
+
+            System.out.println(tmporder);//sdaaaaaaaaaaaaaaaaaa
+
+
+        }
 	}
     
     private void loadDataSolids() throws SQLException
@@ -472,14 +492,14 @@ public class JFrameBar extends javax.swing.JFrame {
         String item = "";
         String quantity = "";
 
+        modelSolids.setRowCount(0);
         for (Order l : manager.getAllSolidOrders()) {
             items = l.getItems();
 
             for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-                item = entry.getKey().toString();
+                item = entry.getKey().getName();
                 quantity = entry.getValue().toString();
             }
-
             modelSolids.addRow(new Object[]{ l.getId(), l.getTableID(), item, quantity, l.getStatus() });
         }
 	}
