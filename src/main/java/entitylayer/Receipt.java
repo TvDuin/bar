@@ -72,7 +72,7 @@ public class Receipt {
         }
 
         String totalprice = String.valueOf(totalPrice);
-        return date + empty + itemList + totalprice;
+        return date + empty + itemList + newLine + "-----------" + newLine + "Totaalbedrag: " + totalprice;
     }
 
 }
