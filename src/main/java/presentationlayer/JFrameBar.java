@@ -484,6 +484,7 @@ public class JFrameBar extends javax.swing.JFrame {
                         Object data = jTable1.getValueAt(row, 0); // gets the ID and converts to generic Object
                         try {
                             manager.serveBeverageOrder(Integer.parseInt(data.toString()), Integer.parseInt(s));
+                            updateOrders();
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -515,6 +516,7 @@ public class JFrameBar extends javax.swing.JFrame {
                         Object data = jTable3.getValueAt(row, 0); // gets the ID and converts to generic Object
                         try {
                             manager.serveDishOrder(Integer.parseInt(data.toString()), Integer.parseInt(s));
+                            updateOrders();
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
