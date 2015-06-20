@@ -7,10 +7,7 @@ import javax.xml.crypto.Data;
 import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Thomas on 29-4-2015.
@@ -101,7 +98,7 @@ public class ServingDAO {
 
     public Map<Item, Integer> getBeverageItems(int id) throws SQLException { //Retrieves the items that belong to one order
         DatabaseConnection connection = new DatabaseConnection();
-        Map<Item, Integer> items = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+        Map<Item, Integer> items = new LinkedHashMap<Item, Integer>(); //LinkedHashMap to store the individual items of an order in
 
         if(connection.openConnection()) {
             try {
@@ -131,7 +128,7 @@ public class ServingDAO {
 
     public Map<Item, Integer> getDishItems(int id) throws SQLException { //Retrieves the items that belong to one order
         DatabaseConnection connection = new DatabaseConnection();
-        Map<Item, Integer> items = new HashMap<Item, Integer>(); //Map to store the individual items of an order in
+        Map<Item, Integer> items = new LinkedHashMap<Item, Integer>(); //Map to store the individual items of an order in
 
         if(connection.openConnection()) {
             try {
@@ -144,15 +141,17 @@ public class ServingDAO {
 
                 while(result.next()) {
                     //fill hashmap here using the result of the join statement
-                    System.out.println(result.getString("name") + " , ");
+                    System.out.println("Pre-Name: " + result.getString("name") + " , ");
                     items.put(new Item(result.getInt("dish_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount"));
                 }
 
-//                for(Item i : items.keySet()) {
-//                    System.out.println(i.getName() + ", ");
-//                }
-//
-//                System.out.println("---------------------------------------------------");
+                System.out.println("");
+
+                for(Item i : items.keySet()) {
+                    System.out.println("After-name: " + i.getName() + ", ");
+                }
+
+                System.out.println("---------------------------------------------------");
             }
             catch(SQLException e) {
                 throw e;

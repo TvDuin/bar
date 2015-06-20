@@ -101,7 +101,7 @@ public class OrderManager {
     }
 
     public String getDayResults(String soort, String date) throws SQLException{
-        List<Order> tmpList = new ArrayList<Order>();
+        List<Order> tmpList;
         List<Integer> billIDs = serving.getAllPaidBills(date);
         int beverageTotal = 0;
         int dishTotal = 0;
