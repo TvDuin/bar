@@ -207,21 +207,40 @@ public class ServingDAO {
         return items;
     }
 
-    public void serveOrder(int id, int serverId) throws SQLException{
+    public void serveBeverageOrder(int id, int serverId) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
 
         //Check for a valid connection
         if(connection.openConnection()) {
             //Insert SQL code here
-            String query1 =  "UPDATE `dish_order` SET `status` = 4 WHERE `ID` = " + id;
-            String query2 =  "UPDATE `dish_order` SET `staff_ID` = " + serverId + " WHERE `ID` = " + id;
-            String query3 =  "UPDATE `beverage_order` SET `status` = 4 WHERE `ID` = " + id;
+            String query3 =  "UPDATE `beverage_order` SET `status` = 6 WHERE `ID` = " + id;
             String query4 =  "UPDATE `beverage_order` SET `staff_ID` = " + serverId + " WHERE `ID` = " + id;
+            try {
+                connection.executeSQLInsertStatement(query3);
+                connection.executeSQLInsertStatement(query4);
+            }
+
+            catch(SQLException e) {
+                throw e;
+            }
+        }
+
+        if(connection.connectionIsOpen()) {
+            connection.closeConnection();
+        }
+    }
+
+    public void serveDishOrder(int id, int serverId) throws SQLException{
+        DatabaseConnection connection = new DatabaseConnection();
+
+        //Check for a valid connection
+        if(connection.openConnection()) {
+            //Insert SQL code here
+            String query1 =  "UPDATE `dish_order` SET `status` = 6 WHERE `ID` = " + id;
+            String query2 =  "UPDATE `dish_order` SET `staff_ID` = " + serverId + " WHERE `ID` = " + id;
             try {
                 connection.executeSQLInsertStatement(query1);
                 connection.executeSQLInsertStatement(query2);
-                connection.executeSQLInsertStatement(query3);
-                connection.executeSQLInsertStatement(query4);
             }
 
             catch(SQLException e) {

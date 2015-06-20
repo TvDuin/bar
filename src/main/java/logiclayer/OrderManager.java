@@ -40,15 +40,20 @@ public class OrderManager {
 
     public List<Order> getAllSolidOrders() throws SQLException {
         availableDishOrders.clear();
-        availableDishOrders.addAll(serving.retrieveOrders(3, "dish"));
+        availableDishOrders.addAll(serving.retrieveOrders(4, "dish"));
         availableDishOrders.addAll(serving.retrieveOrders(2, "dish"));
         for(Order o : availableDishOrders) {
             o.addItem(serving.getDishItems(o.getId()));
         }
         return availableDishOrders;
     }
-    public void serveOrder(int id, int serverId) throws SQLException{
-        serving.serveOrder(id, serverId);
+
+    public void serveBeverageOrder(int id, int serverId) throws SQLException{
+        serving.serveBeverageOrder(id, serverId);
+    }
+
+    public void serveDishOrder(int id, int serverId) throws SQLException{
+        serving.serveDishOrder(id, serverId);
     }
 
     public List<Integer> getActivetables() throws SQLException{
@@ -75,13 +80,6 @@ public class OrderManager {
         }
 
         allOrders.addAll(tmpList);
-
-//        for (Order o : allOrders) {
-//            Map<Item, Integer> items = o.getItems();
-//            for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-//                System.out.println(entry.getValue() + " " + entry.getKey().getName() + ", ");
-//            }
-//        }
 
         return allOrders;
     }

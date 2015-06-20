@@ -467,25 +467,23 @@ public class JFrameBar extends javax.swing.JFrame {
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
                 System.out.println("Row: " + row);
-                JFrame frame = new JFrame("Bestelling accepteren");
+                JFrame frame = new JFrame("Bestelling uitserveren");
                 if (me.getClickCount() == 2) {
                     Object[] possibilities = { "1", "2", "3" };
                     String s = (String)JOptionPane.showInputDialog(
                             frame,
-                            "Bestelling accepteren.\n"
+                            "Bestelling uitserveren.\n"
                                     + "Kies hieronder je medewerkers ID:",
-                            "Bestelling accepteren",
+                            "Bestelling uitserveren",
                             JOptionPane.PLAIN_MESSAGE,
                             null,
                             possibilities,
                             "1");
 
                     if((s != null) && (s.length() > 0)){
-                        Object data = (Object)jTable1.getValueAt(row, 0); // getsID
-                        System.out.println("OrderID: " + Integer.parseInt(data.toString()));
-                        System.out.println("Box: " + Integer.parseInt(s));
+                        Object data = jTable1.getValueAt(row, 0); // gets the ID and converts to generic Object
                         try {
-                            manager.serveOrder(Integer.parseInt(data.toString()), Integer.parseInt(s));
+                            manager.serveBeverageOrder(Integer.parseInt(data.toString()), Integer.parseInt(s));
                         } catch (SQLException e) {
                             e.printStackTrace();
                         }
@@ -494,7 +492,38 @@ public class JFrameBar extends javax.swing.JFrame {
             }
         });
 
-        jTable2.addMouseListener(new MouseAdapter() {
+        jTable3.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table = (JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                System.out.println("Row: " + row);
+                JFrame frame = new JFrame("Gerecht uitserveren");
+                if (me.getClickCount() == 2) {
+                    Object[] possibilities = { "1", "2", "3" };
+                    String s = (String)JOptionPane.showInputDialog(
+                            frame,
+                            "Gerecht uitserveren.\n"
+                                    + "Kies hieronder je medewerkers ID:",
+                            "Gerecht uitserveren",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            possibilities,
+                            "1");
+
+                    if((s != null) && (s.length() > 0)){
+                        Object data = jTable3.getValueAt(row, 0); // gets the ID and converts to generic Object
+                        try {
+                            manager.serveDishOrder(Integer.parseInt(data.toString()), Integer.parseInt(s));
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });
+
+        jTable2.addMouseListener(new MouseAdapter() { //Needs to get some functionality. First user prints receipt (which shows on screen) then sets status to isPaid = 1.
             public void mousePressed(MouseEvent me) {
                 JTable table = (JTable) me.getSource();
                 Point p = me.getPoint();
