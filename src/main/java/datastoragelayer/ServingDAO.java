@@ -25,11 +25,11 @@ public class ServingDAO {
         if(connection.openConnection()) {
             try {
                 ResultSet result1;
-                String query = "SELECT `table_id` FROM `bill` WHERE `table_id` = " + table_id + " AND `is_paid` = 0;";
+                String query = "SELECT `ID` FROM `bill` WHERE `table_id` = " + table_id + " AND `is_paid` = 0;";
                 result1 = connection.executeSQLSelectStatement(query);
 
                 while(result1.next()) {
-                    billID = result1.getInt("table_id");
+                    billID = result1.getInt("ID");
                 }
             }
             catch(SQLException e) {
@@ -42,32 +42,6 @@ public class ServingDAO {
         }
 
         return billID;
-    }
-
-    public int getWantsToPay(int table_id) throws SQLException{
-        DatabaseConnection connection = new DatabaseConnection();
-        int wantsToPay = 0;
-
-        if(connection.openConnection()) {
-            try {
-                ResultSet result1;
-                String query = "SELECT `wantsToPay` FROM `bill` WHERE `table_id` = " + table_id;
-                result1 = connection.executeSQLSelectStatement(query);
-
-                while(result1.next()) {
-                    wantsToPay = result1.getInt("wantsToPay");
-                }
-            }
-            catch(SQLException e) {
-                throw e;
-            }
-        }
-
-        if(connection.connectionIsOpen()) {
-            connection.closeConnection();
-        }
-
-        return wantsToPay;
     }
 
     public List<Order> retrieveOrders(int status, String type) throws SQLException { //retrieves orders by status and, either 1 or 3, and either beverage or dish
@@ -103,7 +77,7 @@ public class ServingDAO {
         if(connection.openConnection()) {
             try {
                 ResultSet result1; //query that contains all the ID, tableID and statusses from all available
-                String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `table_ID` = " + id + ";";
+                String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `ID` = " + id + ";";
                 result1 = connection.executeSQLSelectStatement(query);
 
                 while(result1.next()) {
@@ -167,17 +141,8 @@ public class ServingDAO {
 
                 while(result.next()) {
                     //fill hashmap here using the result of the join statement
-                    System.out.println("Pre-Name: " + result.getString("name") + " , ");
                     items.put(new Item(result.getInt("dish_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount"));
                 }
-
-                System.out.println("");
-
-                for(Item i : items.keySet()) {
-                    System.out.println("After-name: " + i.getName() + ", ");
-                }
-
-                System.out.println("---------------------------------------------------");
             }
             catch(SQLException e) {
                 throw e;
