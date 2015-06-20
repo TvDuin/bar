@@ -209,6 +209,7 @@ public class ServingDAO {
 
     public void serveBeverageOrder(int id, int serverId) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
+        Map<Item, Integer> items;
 
         //Check for a valid connection
         if(connection.openConnection()) {
@@ -218,6 +219,13 @@ public class ServingDAO {
             try {
                 connection.executeSQLInsertStatement(query3);
                 connection.executeSQLInsertStatement(query4);
+
+//                items = getDishItems(id);
+//                for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+//                    String query5 = "UPDATE `food` SET `stock` = stock - (SELECT amount FROM beverage_order_item WHERE beverage_item_id ="
+//                            + entry.getKey().getId() + ") WHERE beverage_ID = "+ entry.getKey().getId() + ";";
+//                    connection.executeSQLInsertStatement(query5);
+//                }
             }
 
             catch(SQLException e) {
@@ -236,6 +244,7 @@ public class ServingDAO {
         //Check for a valid connection
         if(connection.openConnection()) {
             //Insert SQL code here
+
             String query1 =  "UPDATE `dish_order` SET `status` = 6 WHERE `ID` = " + id;
             String query2 =  "UPDATE `dish_order` SET `staff_ID` = " + serverId + " WHERE `ID` = " + id;
             try {
