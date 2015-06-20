@@ -141,17 +141,8 @@ public class ServingDAO {
 
                 while(result.next()) {
                     //fill hashmap here using the result of the join statement
-                    System.out.println("Pre-Name: " + result.getString("name") + " , ");
                     items.put(new Item(result.getInt("dish_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount"));
                 }
-
-                System.out.println("");
-
-                for(Item i : items.keySet()) {
-                    System.out.println("After-name: " + i.getName() + ", ");
-                }
-
-                System.out.println("---------------------------------------------------");
             }
             catch(SQLException e) {
                 throw e;

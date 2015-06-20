@@ -481,18 +481,15 @@ public class JFrameBar extends javax.swing.JFrame {
     {
         DefaultTableModel modelSolids = (DefaultTableModel) jTable3.getModel();
 
-        String item = "";
-        String quantity = "";
-
         modelSolids.setRowCount(0);
         for (Order l : manager.getAllSolidOrders()) {
             items = l.getItems();
+            String item = "";
 
             for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-                item = entry.getKey().getName();
-                quantity = entry.getValue().toString();
+                item += (entry.getValue() + " " + entry.getKey().getName() + ", ");
             }
-            modelSolids.addRow(new Object[]{ l.getId(), l.getTableID(), item, quantity, l.getStatus() });
+            modelSolids.addRow(new Object[]{ l.getId(), l.getTableID(), item, l.getStatus() });
         }
 	}
 
