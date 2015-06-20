@@ -219,11 +219,24 @@ public class ServingDAO {
             String query2 =  "UPDATE `dish_order` SET `staff_ID` = " + serverId + " WHERE `ID` = " + order.getId();
             String query3 =  "UPDATE `beverage_order` SET `status` = 4 WHERE `ID` = " + order.getId();
             String query4 =  "UPDATE `beverage_order` SET `staff_ID` = " + serverId + " WHERE `ID` = " + order.getId();
+            //voorraad aanpassing dranken
+            Map<Item, Integer> items = new HashMap<Item, Integer>();
+
+
+
+
             try {
                 connection.executeSQLInsertStatement(query1);
                 connection.executeSQLInsertStatement(query2);
                 connection.executeSQLInsertStatement(query3);
                 connection.executeSQLInsertStatement(query4);
+
+                items = order.getItems();
+                for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+                    String query5 = "UPDATE `food` SET `stock` = stock - (SELECT amount FROM beverage_order_item WHERE beverage_item_id ="
+                            + entry.getKey().getId() + ") WHERE beverage_ID = "+ entry.getKey().getId() + ";";
+                    connection.executeSQLInsertStatement(query5);
+                }
             }
 
             catch(SQLException e) {
