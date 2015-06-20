@@ -136,10 +136,10 @@ public class OrderManager {
             return centsToEuros(beverageTotal) + " Euro";
         }
         else if(soort == "Gerechten"){
-            return centsToEuros(dishTotal) + "Euro";
+            return centsToEuros(dishTotal) + " Euro";
         }
         else if(soort == "Totaal"){
-            return centsToEuros(total) + "Euro";
+            return centsToEuros(total) + " Euro";
         }
         else{
             return "Geen Datum ingevuld!";
