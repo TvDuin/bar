@@ -6,10 +6,8 @@ import datastoragelayer.InlogDAO;
 
 import java.lang.reflect.Array;
 import java.sql.SQLException;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -125,7 +123,7 @@ public class OrderManager {
 
             for(Order o : tmpList) {
                 for(Map.Entry<Item, Integer> entry : serving.getDishItems(o.getId()).entrySet()) {
-                    dishTotal += (entry.getKey().getPrice() * entry.getValue());
+                    beverageTotal += (entry.getKey().getPrice() * entry.getValue());
                 }
             }
         }
@@ -133,22 +131,17 @@ public class OrderManager {
         total = beverageTotal + dishTotal;
 
         if(soort == "Dranken"){
-            return centsToEuros(beverageTotal) + " Euro";
+            return "€" + beverageTotal;
         }
         else if(soort == "Gerechten"){
-            return "" + centsToEuros(dishTotal) + " Euro";
+            return "€" + dishTotal;
         }
         else if(soort == "Totaal"){
-            return "" + centsToEuros(total) + " Euro";
+            return "€" + total;
         }
         else{
             return "Geen Datum ingevuld!";
         }
-    }
-
-    public String centsToEuros(int cents) {
-        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.FRANCE);
-        return nf.format(cents/100.0);
     }
 }
 
