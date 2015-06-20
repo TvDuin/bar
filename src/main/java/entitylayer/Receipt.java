@@ -1,5 +1,7 @@
 package entitylayer;
 
+import logiclayer.OrderManager;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -58,12 +60,13 @@ public class Receipt {
 
     public void print() {
         String newLine = System.getProperty("line.separator");
+        OrderManager manager = new OrderManager();
 
         System.out.println(dateRepresentation + newLine);
         System.out.println("-----------------" + newLine);
 
         for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-            System.out.println(entry.getKey().getName() + "     " + entry.getValue() + "x  " + entry.getKey().getPrice() + newLine);
+            System.out.println(entry.getKey().getName() + "     " + entry.getValue() + "x  " + manager.centsToEuros(entry.getKey().getPrice()) + newLine);
         }
 
         System.out.println(totalPrice);
