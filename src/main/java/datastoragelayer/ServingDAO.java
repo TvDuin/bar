@@ -220,12 +220,12 @@ public class ServingDAO {
                 connection.executeSQLInsertStatement(query3);
                 connection.executeSQLInsertStatement(query4);
 
-//                items = getDishItems(id);
-//                for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-//                    String query5 = "UPDATE `food` SET `stock` = stock - (SELECT amount FROM beverage_order_item WHERE beverage_item_id ="
-//                            + entry.getKey().getId() + ") WHERE beverage_ID = "+ entry.getKey().getId() + ";";
-//                    connection.executeSQLInsertStatement(query5);
-//                }
+                items = getBeverageItems(id);
+                for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+                    String query5 = "UPDATE `food` SET `stock` = (stock - " + entry.getValue() + ")  WHERE `name` = '"+ entry.getKey().getName() + "';";
+                    System.out.println(query5);
+                    connection.executeSQLInsertStatement(query5);
+                }
             }
 
             catch(SQLException e) {
