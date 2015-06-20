@@ -69,7 +69,7 @@ public class JFrameBar extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         jFormattedTextField1 = new javax.swing.JFormattedTextField(dateFormat);
         jFormattedTextField2 = new javax.swing.JFormattedTextField(dateFormat);
         jFormattedTextField3 = new javax.swing.JFormattedTextField(dateFormat);
@@ -495,7 +495,6 @@ public class JFrameBar extends javax.swing.JFrame {
     public String orderPaid(int tableId, int EmployeeId) throws SQLException
     {
         if (manager.setOrderPaid(tableId, EmployeeId)){
-            System.out.println("all is well"); // Remove this
             return "De bestelling van tafel " + tableId + " is betaald.";
         }
         else{
