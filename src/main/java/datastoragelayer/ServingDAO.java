@@ -44,6 +44,32 @@ public class ServingDAO {
         return billID;
     }
 
+    public List<Integer> getActiveTables() throws SQLException{
+        DatabaseConnection connection = new DatabaseConnection();
+        List<Integer> activeTables = new ArrayList<Integer>();
+
+        if(connection.openConnection()) {
+            try {
+                ResultSet result1;
+                String query = "SELECT `table_id` FROM `bill` WHERE `is_paid` = 0;";
+                result1 = connection.executeSQLSelectStatement(query);
+
+                while(result1.next()) {
+                    activeTables.add(result1.getInt("table_id"));
+                }
+            }
+            catch(SQLException e) {
+                throw e;
+            }
+        }
+
+        if(connection.connectionIsOpen()) {
+            connection.closeConnection();
+        }
+
+        return activeTables;
+    }
+
     public int getWantsToPay(int table_id) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
         int wantsToPay = 0;

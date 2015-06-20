@@ -47,14 +47,17 @@ public class OrderManager {
         }
         return availableDishOrders;
     }
-
     public void serveOrder(Order order, int serverId) throws SQLException{
         serving.serveOrder(order, serverId);
     }
 
+    public List<Integer> getActivetables() throws SQLException{
+        return serving.getActiveTables();
+    }
+
     public List<Order> retrieveAllFromTable(int tableID) throws SQLException {
         int billID = serving.getBillID(tableID);
-        List<Order> tmpList = new ArrayList<Order>();
+        List<Order> tmpList;
         List<Order> allOrders = new ArrayList<Order>();
 
         tmpList = serving.retrieveOrdersByID(billID, "beverage");
