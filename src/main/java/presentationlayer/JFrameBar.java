@@ -450,6 +450,19 @@ public class JFrameBar extends javax.swing.JFrame {
         }
     }
 
+       private void serveOrderTest(){
+        try {
+            for (Order l : manager.getAllLiquidOrders()){
+                if(l.getId() == 12){
+                manager.serveOrder(l, 2);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     private void addMouseListeners(){
         jTable1.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
@@ -629,6 +642,7 @@ public class JFrameBar extends javax.swing.JFrame {
         // TODO add your handling code here:
         //refresh button bar & keuken
         updateOrders();
+        serveOrderTest();
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
