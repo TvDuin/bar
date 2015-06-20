@@ -9,11 +9,16 @@ import entitylayer.Item;
 import entitylayer.Order;
 import logiclayer.OrderManager;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 /**
  *
@@ -34,6 +39,7 @@ public class JFrameBar extends javax.swing.JFrame {
 
         updateOrders();
         updateTables();
+        addMouseListeners();
     }
 
     /**
@@ -454,6 +460,50 @@ public class JFrameBar extends javax.swing.JFrame {
         }
     }
 
+    private void addMouseListeners(){
+        jTable1.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table = (JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                JFrame frame = new JFrame("Bestelling accepteren");
+                if (me.getClickCount() == 2) {
+                    Object[] options = {"Accepteren",
+                            "Annuleren"};
+                    int n = JOptionPane.showOptionDialog(frame,
+                            "Wilt u de bestelling accepteren?",
+                            "",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,     //do not use a custom Icon
+                            options,  //the titles of buttons
+                            options[0]);
+                }
+            }
+        });
+
+        jTable2.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent me) {
+                JTable table = (JTable) me.getSource();
+                Point p = me.getPoint();
+                int row = table.rowAtPoint(p);
+                JFrame frame = new JFrame("Rekening");
+                if (me.getClickCount() == 2) {
+                    Object[] options = {"Bon afdrukken",
+                            "Annuleren"};
+                    int n = JOptionPane.showOptionDialog(frame,
+                            "Wilt u een bon afdrukken van de bestelling?",
+                            "",
+                            JOptionPane.YES_NO_OPTION,
+                            JOptionPane.QUESTION_MESSAGE,
+                            null,     //do not use a custom Icon
+                            options,  //the titles of buttons
+                            options[0]);
+                }
+            }
+        });
+
+    }
 
     private void loadDataLiquids() throws SQLException
     {
