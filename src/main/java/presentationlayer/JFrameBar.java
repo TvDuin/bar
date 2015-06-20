@@ -447,7 +447,11 @@ public class JFrameBar extends javax.swing.JFrame {
     }
 
     private void updateTables(){
-        //loadTables();
+        try {
+            loadTables();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -486,9 +490,32 @@ public class JFrameBar extends javax.swing.JFrame {
     private void loadTables() throws SQLException
     {
         DefaultTableModel modelTables = (DefaultTableModel) jTable2.getModel();
+        int tableID;
+        String item = "";
+        String quantity = "";
 
-        for (Order o: this.manager.getAllSolidOrders()){
-            modelTables.addRow(new Object[]{ o });
+        for(int i=0; i<16; i++){
+            tableID = i;
+
+            for (Order o: this.manager.retrieveAllFromTable(tableID)) {
+                items = o.getItems();
+                List<String> names = new ArrayList<String>();
+                List<Integer> amounts = new ArrayList<Integer>();
+
+                for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+                    names.add(entry.getKey().getName());
+                    amounts.add(entry.getValue());
+                }
+
+                String itemString = "";
+                for(String name : names) {
+                    for(Integer amount : amounts) {
+                        itemString += (amount + " " + name + ", ");
+                    }
+                }
+
+                modelTables.addRow(new Object[]{ o.getTableID(), itemString, o.getStatus() });
+            }
         }
     }
 

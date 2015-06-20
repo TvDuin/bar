@@ -25,11 +25,11 @@ public class ServingDAO {
         if(connection.openConnection()) {
             try {
                 ResultSet result1;
-                String query = "SELECT `ID` FROM `bill` WHERE `table_id` = " + table_id + " AND `is_paid` = 0;";
+                String query = "SELECT `table_ID` FROM `bill` WHERE `table_id` = " + table_id + " AND `is_paid` = 0;";
                 result1 = connection.executeSQLSelectStatement(query);
 
                 while(result1.next()) {
-                    billID = result1.getInt("ID");
+                    billID = result1.getInt("table_ID");
                 }
             }
             catch(SQLException e) {
@@ -77,7 +77,7 @@ public class ServingDAO {
         if(connection.openConnection()) {
             try {
                 ResultSet result1; //query that contains all the ID, tableID and statusses from all available
-                String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `ID` = " + id + ";";
+                String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `table_ID` = " + id + ";";
                 result1 = connection.executeSQLSelectStatement(query);
 
                 while(result1.next()) {
@@ -141,8 +141,17 @@ public class ServingDAO {
 
                 while(result.next()) {
                     //fill hashmap here using the result of the join statement
+                    System.out.println("Pre-Name: " + result.getString("name") + " , ");
                     items.put(new Item(result.getInt("dish_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount"));
                 }
+
+                System.out.println("");
+
+                for(Item i : items.keySet()) {
+                    System.out.println("After-name: " + i.getName() + ", ");
+                }
+
+                System.out.println("---------------------------------------------------");
             }
             catch(SQLException e) {
                 throw e;
