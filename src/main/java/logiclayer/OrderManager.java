@@ -85,6 +85,17 @@ public class OrderManager {
         return receipt;
     }
 
+    public int getWantsToPay(int tableID){
+        int wantsToPay = 0;
+
+        try {
+            wantsToPay = serving.getWantsToPay(tableID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return wantsToPay;
+    }
+
     public boolean setOrderPaid(int tableId, int staffID) throws SQLException{
         return serving.setOrderPaid(tableId, staffID);
     }
