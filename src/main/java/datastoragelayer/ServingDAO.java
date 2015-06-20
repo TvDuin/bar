@@ -143,9 +143,16 @@ public class ServingDAO {
                 result = connection.executeSQLSelectStatement(query);
 
                 while(result.next()) {
-                    //fill hashmap here using a the result of the join statement
+                    //fill hashmap here using the result of the join statement
+                    System.out.println(result.getString("name") + " , ");
                     items.put(new Item(result.getInt("dish_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount"));
                 }
+
+//                for(Item i : items.keySet()) {
+//                    System.out.println(i.getName() + ", ");
+//                }
+//
+//                System.out.println("---------------------------------------------------");
             }
             catch(SQLException e) {
                 throw e;
@@ -155,6 +162,12 @@ public class ServingDAO {
         if(connection.connectionIsOpen()) {
             connection.closeConnection();
         }
+
+//        for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+//            System.out.println(entry.getValue() + " " + entry.getKey().getName() + ", ");
+//        }
+//
+//        System.out.println("------------------------------------------------");
 
         return items;
     }

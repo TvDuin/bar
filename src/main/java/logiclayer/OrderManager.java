@@ -37,7 +37,8 @@ public class OrderManager {
     }
 
     public List<Order> getAllSolidOrders() throws SQLException {
-        availableDishOrders = serving.retrieveOrders(1, "dish");
+        availableDishOrders.clear();
+        availableDishOrders.addAll(serving.retrieveOrders(3, "dish"));
         for(Order o : availableDishOrders) {
             o.addItem(serving.getDishItems(o.getId()));
         }
