@@ -6,8 +6,10 @@ import datastoragelayer.InlogDAO;
 
 import java.lang.reflect.Array;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -39,6 +41,7 @@ public class OrderManager {
     public List<Order> getAllSolidOrders() throws SQLException {
         availableDishOrders.clear();
         availableDishOrders.addAll(serving.retrieveOrders(3, "dish"));
+        availableDishOrders.addAll(serving.retrieveOrders(2, "dish"));
         for(Order o : availableDishOrders) {
             o.addItem(serving.getDishItems(o.getId()));
         }
@@ -122,7 +125,7 @@ public class OrderManager {
 
             for(Order o : tmpList) {
                 for(Map.Entry<Item, Integer> entry : serving.getDishItems(o.getId()).entrySet()) {
-                    beverageTotal += (entry.getKey().getPrice() * entry.getValue());
+                    dishTotal += (entry.getKey().getPrice() * entry.getValue());
                 }
             }
         }
@@ -130,17 +133,22 @@ public class OrderManager {
         total = beverageTotal + dishTotal;
 
         if(soort == "Dranken"){
-            return "€" + beverageTotal;
+            return centsToEuros(beverageTotal) + " Euro";
         }
         else if(soort == "Gerechten"){
-            return "€" + dishTotal;
+            return centsToEuros(dishTotal) + "Euro";
         }
         else if(soort == "Totaal"){
-            return "€" + total;
+            return centsToEuros(total) + "Euro";
         }
         else{
             return "Geen Datum ingevuld!";
         }
+    }
+
+    public String centsToEuros(int cents) {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.FRANCE);
+        return nf.format(cents/100.0);
     }
 }
 
