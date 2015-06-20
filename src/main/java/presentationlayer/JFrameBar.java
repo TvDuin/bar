@@ -542,11 +542,14 @@ public class JFrameBar extends javax.swing.JFrame {
 
         modelTables.setRowCount(0);
         for (Integer tableID : manager.getActivetables()) {
-            Map<Item, Integer> tableItems =  manager.retrieveAllFromTable(tableID);
+            List<Order> ordersFromTable = manager.retrieveAllFromTable(tableID);
             String item = "";
 
-            for (Map.Entry<Item, Integer> entry : tableItems.entrySet()) {
-                item += (entry.getValue() + " " + entry.getKey().getName() + ", ");
+            for(Order order : ordersFromTable) {
+                items = order.getItems();
+                for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+                    item += (entry.getValue() + " " + entry.getKey().getName() + ", ");
+                }
             }
             modelTables.addRow(new Object[]{tableID, item, manager.getWantsToPay(tableID)});
         }
