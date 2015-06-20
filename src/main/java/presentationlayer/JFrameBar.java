@@ -7,6 +7,7 @@ package presentationlayer;
 
 import entitylayer.Item;
 import entitylayer.Order;
+import entitylayer.Receipt;
 import logiclayer.OrderManager;
 
 import javax.swing.*;
@@ -450,19 +451,6 @@ public class JFrameBar extends javax.swing.JFrame {
         }
     }
 
-       private void serveOrderTest(){
-        try {
-            for (Order l : manager.getAllLiquidOrders()){
-                if(l.getId() == 12){
-                manager.serveBeverageOrder(1, 2);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     private void addMouseListeners(){
         jTable1.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent me) {
@@ -535,59 +523,73 @@ public class JFrameBar extends javax.swing.JFrame {
                 int row = table.rowAtPoint(p);
                 JFrame frame = new JFrame("Rekening");
                 if (me.getClickCount() == 2) {
-                    Object[] options = {"Bon afdrukken",
+                    Object[] options = {"Bon afdrukken","Afrekenen",
                             "Annuleren"};
                     int n = JOptionPane.showOptionDialog(frame,
-                            "Wilt u een bon afdrukken van de bestelling?",
                             "",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
+                            "",
+                            JOptionPane.YES_NO_CANCEL_OPTION,
+                            JOptionPane.PLAIN_MESSAGE,
                             null,     //do not use a custom Icon
                             options,  //the titles of buttons
-                            options[0]);
+                            options[1]);
+                    if (n == JOptionPane.YES_OPTION){
+                        //bon afdrukken
+                        Object[] possibilities = { "1", "2", "3" };
+                        String s = (String)JOptionPane.showInputDialog(
+                                frame,
+                                "Bon afdrukken.\n"
+                                        + "Kies hieronder je medewerkers ID:",
+                                "Bon afdrukken",
+                                JOptionPane.PLAIN_MESSAGE,
+                                null,
+                                possibilities,
+                                "");
+
+                        if((s != null) && (s.length() > 0)){
+                            Object data = jTable2.getValueAt(row, 0); // gets the ID and converts to generic Object
+
+                            try {
+                                manager.returnReceipt(Integer.parseInt(data.toString())).print();
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                    if (n == JOptionPane.NO_OPTION){
+                        //Afrekenen
+
+                        Object[] possibilities = { "1", "2", "3" };
+                        String s = (String)JOptionPane.showInputDialog(
+                                frame,
+                                "Afrekenen.\n"
+                                        + "Kies hieronder je medewerkers ID:",
+                                "Afrekenen",
+                                JOptionPane.PLAIN_MESSAGE,
+                                null,
+                                possibilities,
+                                "1");
+
+                        if((s != null) && (s.length() > 0)){
+                            Object data = jTable2.getValueAt(row, 0); // gets the ID and converts to generic Object
+                            try {
+                                orderPaid(Integer.parseInt(data.toString()), Integer.parseInt(s));
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                    }
+                    if (n == JOptionPane.CANCEL_OPTION){
+                        //Annuleren
+                    }
+
                 }
+
+
             }
         });
-
-//        jTable3.addMouseListener(new MouseAdapter() {
-//            public void mousePressed(MouseEvent me) {
-//                JTable table = (JTable) me.getSource();
-//                Point p = me.getPoint();
-//                int row = table.rowAtPoint(p);
-//                JFrame frame = new JFrame("Bestelling accepteren");
-//                if (me.getClickCount() == 2) {
-//                    Object[] possibilities = {"1", "2", "3"};
-//                    String s = (String) JOptionPane.showInputDialog(
-//                            frame,
-//                            "Bestelling accepteren.\n"
-//                                    + "Kies hieronder je medewerkers ID:",
-//                            "Bestelling accepteren",
-//                            JOptionPane.PLAIN_MESSAGE,
-//                            null,
-//                            possibilities,
-//                            "1");
-//
-//                    if ((s != null) && (s.length() > 0)) {
-//                        int row2 = jTable1.getSelectedRow();
-//                        Object data = (Object) jTable1.getValueAt(row2, 0); // getsID
-//                        ArrayList<Order> orders = new ArrayList<Order>();
-//                        for (Order o : orders) {
-//                            if (data.equals(o.getId())) {
-//                                try {
-//                                    System.out.println("aa");
-//                                    manager.serveOrder(o, Integer.parseInt(s));
-//                                } catch (SQLException e) {
-//                                    System.out.println("bb");
-//                                    e.printStackTrace();
-//                                }
-//                            } else {
-//                                System.out.println("ccc");
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        });
 
     }
 
@@ -644,7 +646,6 @@ public class JFrameBar extends javax.swing.JFrame {
     public String orderPaid(int tableId, int EmployeeId) throws SQLException
     {
         if (manager.setOrderPaid(tableId, EmployeeId)){
-            System.out.println("all is well"); // Remove this
             return "De bestelling van tafel " + tableId + " is betaald.";
         }
         else{
@@ -665,7 +666,6 @@ public class JFrameBar extends javax.swing.JFrame {
         // TODO add your handling code here:
         //refresh button bar & keuken
         updateOrders();
-        serveOrderTest();
 
     }//GEN-LAST:event_jButton3ActionPerformed
 
