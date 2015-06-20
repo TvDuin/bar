@@ -204,13 +204,6 @@ public class ServingDAO {
         if(connection.connectionIsOpen()) {
             connection.closeConnection();
         }
-
-//        for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-//            System.out.println(entry.getValue() + " " + entry.getKey().getName() + ", ");
-//        }
-//
-//        System.out.println("------------------------------------------------");
-
         return items;
     }
 

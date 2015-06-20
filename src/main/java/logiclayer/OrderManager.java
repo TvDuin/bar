@@ -76,12 +76,12 @@ public class OrderManager {
 
         allOrders.addAll(tmpList);
 
-        for (Order o :tmpList) {
-            Map<Item, Integer> items = o.getItems();
-            for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-                System.out.println(entry.getValue() + " " + entry.getKey().getName() + ", ");
-            }
-        }
+//        for (Order o : allOrders) {
+//            Map<Item, Integer> items = o.getItems();
+//            for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+//                System.out.println(entry.getValue() + " " + entry.getKey().getName() + ", ");
+//            }
+//        }
 
         return allOrders;
     }
