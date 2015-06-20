@@ -550,7 +550,8 @@ public class JFrameBar extends javax.swing.JFrame {
                             Object data = jTable2.getValueAt(row, 0); // gets the ID and converts to generic Object
 
                             try {
-                                manager.returnReceipt(Integer.parseInt(data.toString())).print();
+                                JOptionPane.showMessageDialog (null, manager.returnReceipt(Integer.parseInt(data.toString())).print(), "Receipt", JOptionPane.PLAIN_MESSAGE);
+
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
