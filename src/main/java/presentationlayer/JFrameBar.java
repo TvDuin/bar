@@ -32,8 +32,8 @@ public class JFrameBar extends javax.swing.JFrame {
         items = new HashMap<Item, Integer>();
 
 
-        //updateOrders();
-        //updateTables();
+        updateOrders();
+        updateTables();
     }
 
     /**
@@ -487,37 +487,27 @@ public class JFrameBar extends javax.swing.JFrame {
         }
 	}
 
-    private void loadTables() throws SQLException
-    {
+    private void loadTables() throws SQLException {
         DefaultTableModel modelTables = (DefaultTableModel) jTable2.getModel();
+
+        modelTables.setRowCount(0);
+
         int tableID;
-        String item = "";
-        String quantity = "";
 
-        for(int i=0; i<16; i++){
+        for (int i = 0; i < 17; i++) {
             tableID = i;
+            items = manager.returnReceipt(tableID).returnItems();
+            String item = "";
 
-            for (Order o: this.manager.retrieveAllFromTable(tableID)) {
-                items = o.getItems();
-                List<String> names = new ArrayList<String>();
-                List<Integer> amounts = new ArrayList<Integer>();
-
-                for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-                    names.add(entry.getKey().getName());
-                    amounts.add(entry.getValue());
-                }
-
-                String itemString = "";
-                for(String name : names) {
-                    for(Integer amount : amounts) {
-                        itemString += (amount + " " + name + ", ");
-                    }
-                }
-
-                modelTables.addRow(new Object[]{ o.getTableID(), itemString, o.getStatus() });
+            for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+                item += (entry.getValue() + " " + entry.getKey().getName() + ", ");
             }
+
+            modelTables.addRow(new Object[]{tableID, item, manager.getWantsToPay(tableID)});
         }
     }
+
+
 
     public String orderPaid(int tableId, int EmployeeId) throws SQLException
     {
