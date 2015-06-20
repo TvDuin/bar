@@ -320,6 +320,48 @@ public class ServingDAO {
 
         return IDs;
     }
+
+    public List<String> getActiveBarMembers() throws SQLException{
+        DatabaseConnection connection = new DatabaseConnection();
+        List<String> staffNames = new ArrayList<String>();
+
+        if(connection.openConnection()) {
+            ResultSet result1;
+            String query1 = "SELECT staff.ID, staff.login_name, present.active FROM staff INNER JOIN present ON staff.ID = present.staff_ID WHERE present.active = 1 AND staff.group_ID = 5;";
+            result1 = connection.executeSQLSelectStatement(query1);
+            try {
+                while(result1.next()) {
+                    staffNames.add(result1.getString("login_name"));
+                }
+            }
+
+            catch(SQLException e) {
+                throw e;
+            }
+        }
+        return staffNames;
+    }
+
+    public int getStaffId(String loginName) throws SQLException{
+        DatabaseConnection connection = new DatabaseConnection();
+        int staffID = 0;
+
+        if(connection.openConnection()) {
+            ResultSet result1;
+            String query1 = "SELECT ID FROM staff WHERE login_name = " + loginName;
+            result1 = connection.executeSQLSelectStatement(query1);
+            try {
+                while(result1.next()) {
+                    staffID = result1.getInt("ID");
+                }
+            }
+
+            catch(SQLException e) {
+                throw e;
+            }
+        }
+        return staffID;
+    }
 }
 
 
