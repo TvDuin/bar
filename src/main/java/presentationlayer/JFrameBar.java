@@ -496,8 +496,8 @@ public class JFrameBar extends javax.swing.JFrame {
             String item = "";
 
             for(Order order : ordersFromTable) {
-                items = order.getItems();
-                for (Map.Entry<Item, Integer> entry : items.entrySet()) {
+                Map<Item, Integer> tableItems = order.getItems();
+                for (Map.Entry<Item, Integer> entry : tableItems.entrySet()) {
                     item += (entry.getValue() + " " + entry.getKey().getName() + ", ");
                 }
             }

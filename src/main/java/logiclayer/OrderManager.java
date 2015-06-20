@@ -74,6 +74,15 @@ public class OrderManager {
             o.addItem(serving.getDishItems(o.getId()));
         }
 
+        allOrders.addAll(tmpList);
+
+        for (Order o :tmpList) {
+            Map<Item, Integer> items = o.getItems();
+            for(Map.Entry<Item, Integer> entry : items.entrySet()) {
+                System.out.println(entry.getValue() + " " + entry.getKey().getName() + ", ");
+            }
+        }
+
         return allOrders;
     }
 
