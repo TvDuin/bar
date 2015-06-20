@@ -47,8 +47,8 @@ public class OrderManager {
         }
         return availableDishOrders;
     }
-    public void serveOrder(Order order, int serverId) throws SQLException{
-        serving.serveOrder(order, serverId);
+    public void serveOrder(int id, int serverId) throws SQLException{
+        serving.serveOrder(id, serverId);
     }
 
     public List<Integer> getActivetables() throws SQLException{

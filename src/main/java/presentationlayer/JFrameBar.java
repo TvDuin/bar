@@ -466,6 +466,7 @@ public class JFrameBar extends javax.swing.JFrame {
                 JTable table = (JTable) me.getSource();
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
+                System.out.println("Row: " + row);
                 JFrame frame = new JFrame("Bestelling accepteren");
                 if (me.getClickCount() == 2) {
                     Object[] possibilities = { "1", "2", "3" };
@@ -480,22 +481,13 @@ public class JFrameBar extends javax.swing.JFrame {
                             "1");
 
                     if((s != null) && (s.length() > 0)){
-                        int row2 = jTable1.getSelectedRow();
-                        Object data = (Object)jTable1.getValueAt(row2, 0); // getsID
-                        ArrayList<Order> orders = new ArrayList<Order>();
-                        for(Order o : orders){
-                            if(data.equals(o.getId())){
-                                try {
-                                    System.out.println("aa");
-                                    manager.serveOrder(o, Integer.parseInt(s));
-                                } catch (SQLException e) {
-                                    System.out.println("bb");
-                                    e.printStackTrace();
-                                }
-                            }
-                            else{
-                                System.out.println("ccc");
-                            }
+                        Object data = (Object)jTable1.getValueAt(row, 0); // getsID
+                        System.out.println("OrderID: " + Integer.parseInt(data.toString()));
+                        System.out.println("Box: " + Integer.parseInt(s));
+                        try {
+                            manager.serveOrder(Integer.parseInt(data.toString()), Integer.parseInt(s));
+                        } catch (SQLException e) {
+                            e.printStackTrace();
                         }
                     }
                 }
