@@ -167,6 +167,31 @@ public class OrderManager {
         }
     }
 
+    public List<String> getActiveBarMembers() {
+        List<String> tmpList = new ArrayList<String>();
+
+        try {
+            tmpList = serving.getActiveBarMembers();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return tmpList;
+    }
+
+    public int getStaffId(String loginName) {
+        int id = 0;
+
+        try {
+            id = serving.getStaffId(loginName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return id;
+    }
+
     public String centsToEuros(int cents) {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.FRANCE);
         return nf.format(cents/100.0);

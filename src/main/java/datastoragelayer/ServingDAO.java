@@ -348,7 +348,7 @@ public class ServingDAO {
 
         if(connection.openConnection()) {
             ResultSet result1;
-            String query1 = "SELECT ID FROM staff WHERE login_name = " + loginName;
+            String query1 = "SELECT ID FROM staff WHERE login_name = '" + loginName + "'";
             result1 = connection.executeSQLSelectStatement(query1);
             try {
                 while(result1.next()) {

@@ -460,7 +460,9 @@ public class JFrameBar extends javax.swing.JFrame {
                 System.out.println("Row: " + row);
                 JFrame frame = new JFrame("Bestelling uitserveren");
                 if (me.getClickCount() == 2) {
-                    Object[] possibilities = { "1", "2", "3" };
+                    String[] activeMembers = new String[manager.getActiveBarMembers().size()];
+                    activeMembers = manager.getActiveBarMembers().toArray(activeMembers);
+                    Object[] possibilities = activeMembers; //{ "1", "2", "3" };
                     String s = (String)JOptionPane.showInputDialog(
                             frame,
                             "Bestelling uitserveren.\n"
@@ -474,7 +476,8 @@ public class JFrameBar extends javax.swing.JFrame {
                     if((s != null) && (s.length() > 0)){
                         Object data = jTable1.getValueAt(row, 0); // gets the ID and converts to generic Object
                         try {
-                            manager.serveBeverageOrder(Integer.parseInt(data.toString()), Integer.parseInt(s));
+                            System.out.println(manager.getStaffId(s.toString()));
+                            manager.serveBeverageOrder(Integer.parseInt(data.toString()), manager.getStaffId(s.toString()));
                             updateOrders();
                         } catch (SQLException e) {
                             e.printStackTrace();
@@ -492,7 +495,9 @@ public class JFrameBar extends javax.swing.JFrame {
                 System.out.println("Row: " + row);
                 JFrame frame = new JFrame("Gerecht uitserveren");
                 if (me.getClickCount() == 2) {
-                    Object[] possibilities = { "1", "2", "3" };
+                    String[] activeMembers = new String[manager.getActiveBarMembers().size()];
+                    activeMembers = manager.getActiveBarMembers().toArray(activeMembers);
+                    Object[] possibilities = activeMembers; //{ "1", "2", "3" };
                     String s = (String)JOptionPane.showInputDialog(
                             frame,
                             "Gerecht uitserveren.\n"
@@ -506,7 +511,7 @@ public class JFrameBar extends javax.swing.JFrame {
                     if((s != null) && (s.length() > 0)){
                         Object data = jTable3.getValueAt(row, 0); // gets the ID and converts to generic Object
                         try {
-                            manager.serveDishOrder(Integer.parseInt(data.toString()), Integer.parseInt(s));
+                            manager.serveDishOrder(Integer.parseInt(data.toString()), manager.getStaffId(s.toString()));
                             updateOrders();
                         } catch (SQLException e) {
                             e.printStackTrace();
@@ -535,7 +540,9 @@ public class JFrameBar extends javax.swing.JFrame {
                             options[1]);
                     if (n == JOptionPane.YES_OPTION){
                         //bon afdrukken
-                        Object[] possibilities = { "1", "2", "3" };
+                        String[] activeMembers = new String[manager.getActiveBarMembers().size()];
+                        activeMembers = manager.getActiveBarMembers().toArray(activeMembers);
+                        Object[] possibilities = activeMembers; //{ "1", "2", "3" };
                         String s = (String)JOptionPane.showInputDialog(
                                 frame,
                                 "Bon afdrukken.\n"
@@ -560,7 +567,9 @@ public class JFrameBar extends javax.swing.JFrame {
                     if (n == JOptionPane.NO_OPTION){
                         //Afrekenen
 
-                        Object[] possibilities = { "1", "2", "3" };
+                        String[] activeMembers = new String[manager.getActiveBarMembers().size()];
+                        activeMembers = manager.getActiveBarMembers().toArray(activeMembers);
+                        Object[] possibilities = activeMembers; //{ "1", "2", "3" };
                         String s = (String)JOptionPane.showInputDialog(
                                 frame,
                                 "Afrekenen.\n"
@@ -574,7 +583,8 @@ public class JFrameBar extends javax.swing.JFrame {
                         if((s != null) && (s.length() > 0)){
                             Object data = jTable2.getValueAt(row, 0); // gets the ID and converts to generic Object
                             try {
-                                orderPaid(Integer.parseInt(data.toString()), Integer.parseInt(s));
+                                orderPaid(Integer.parseInt(data.toString()), manager.getStaffId(s.toString()));
+                                updateTables();
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
