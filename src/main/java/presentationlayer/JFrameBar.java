@@ -468,16 +468,36 @@ public class JFrameBar extends javax.swing.JFrame {
                 int row = table.rowAtPoint(p);
                 JFrame frame = new JFrame("Bestelling accepteren");
                 if (me.getClickCount() == 2) {
-                    Object[] options = {"Accepteren",
-                            "Annuleren"};
-                    int n = JOptionPane.showOptionDialog(frame,
-                            "Wilt u de bestelling accepteren?",
-                            "",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE,
-                            null,     //do not use a custom Icon
-                            options,  //the titles of buttons
-                            options[0]);
+                    Object[] possibilities = { "1", "2", "3" };
+                    String s = (String)JOptionPane.showInputDialog(
+                            frame,
+                            "Bestelling accepteren.\n"
+                                    + "Kies hieronder je medewerkers ID:",
+                            "Bestelling accepteren",
+                            JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            possibilities,
+                            "1");
+
+                    if((s != null) && (s.length() > 0)){
+                        int row2 = jTable1.getSelectedRow();
+                        Object data = (Object)jTable1.getValueAt(row2, 0); // getsID
+                        ArrayList<Order> orders = new ArrayList<Order>();
+                        for(Order o : orders){
+                            if(data.equals(o.getId())){
+                                try {
+                                    System.out.println("aa");
+                                    manager.serveOrder(o, Integer.parseInt(s));
+                                } catch (SQLException e) {
+                                    System.out.println("bb");
+                                    e.printStackTrace();
+                                }
+                            }
+                            else{
+                                System.out.println("ccc");
+                            }
+                        }
+                    }
                 }
             }
         });
