@@ -4,6 +4,7 @@ import logiclayer.OrderManager;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,18 +59,20 @@ public class Receipt {
         }
     }
 
-    public void print() {
+    public String print() {
         String newLine = System.getProperty("line.separator");
         OrderManager manager = new OrderManager();
+        ArrayList<String> itemList = new ArrayList<String>();
 
-        System.out.println(dateRepresentation + newLine);
-        System.out.println("-----------------" + newLine);
+        String date = (dateRepresentation + newLine);
+        String empty = ("-----------------" + newLine);
 
         for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-            System.out.println(entry.getKey().getName() + "     " + entry.getValue() + "x  " + manager.centsToEuros(entry.getKey().getPrice()) + newLine);
+            itemList.add((entry.getKey().getName() + "     " + entry.getValue() + "x  " + manager.centsToEuros(entry.getKey().getPrice()) + newLine));
         }
 
-        System.out.println(totalPrice);
+        String totalprice = String.valueOf(totalPrice);
+        return date + empty + itemList + newLine + "-----------" + newLine + "Totaalbedrag: " + totalprice;
     }
 
 }
