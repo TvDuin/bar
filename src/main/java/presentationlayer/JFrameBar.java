@@ -458,22 +458,12 @@ public class JFrameBar extends javax.swing.JFrame {
         modelDranken.setRowCount(0);
         for (Order l : manager.getAllLiquidOrders()) {
             items = l.getItems();
-            List<String> names = new ArrayList<String>();
-            List<Integer> amounts = new ArrayList<Integer>();
+            String item = "";
 
             for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-                names.add(entry.getKey().getName());
-                amounts.add(entry.getValue());
+                item += (entry.getValue() + " " + entry.getKey().getName() + ", ");
             }
-
-            String itemString = "";
-            for(String name : names) {
-                for(Integer amount : amounts) {
-                    itemString += (amount + " " + name + ", ");
-                }
-            }
-
-            modelDranken.addRow(new Object[]{l.getId(), l.getTableID(), itemString});
+            modelDranken.addRow(new Object[]{l.getId(), l.getTableID(), item});
         }
 	}
     
