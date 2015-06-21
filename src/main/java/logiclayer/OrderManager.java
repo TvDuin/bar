@@ -90,7 +90,7 @@ public class OrderManager {
             receipt.addOrder(o);
         }
 
-        receipt.setTotalPrice();
+        receipt.setTotalPrice(centsToEuros(receipt.setTempPrice()));
 
         return receipt;
     }

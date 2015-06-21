@@ -18,7 +18,8 @@ public class Receipt {
     private Date date;
     String dateRepresentation;
     private int serverId;
-    private double totalPrice;
+    private String totalPrice;
+    private int tempTotal;
 
     public Receipt(){
         items = new HashMap<Item, Integer>();
@@ -41,25 +42,41 @@ public class Receipt {
     public void addOrder(Order order) {
         Map<Item, Integer> testmap = order.getItems();
         for(Map.Entry<Item, Integer> entry : testmap.entrySet()) {
-            if (items.containsKey(entry.getKey())) {
-                items.put(entry.getKey(), entry.getValue() + 1);
-            }
+            for(Map.Entry<Item, Integer> entryItem : items.entrySet()) {
+                if(entry.getKey().getName().equals(entryItem.getKey().getName())) {
+                    items.put(entry.getKey(), entryItem.getValue() + entry.getValue());
+                }
 
-            else if(!items.containsKey(entry.getKey())) {
-                items.put(entry.getKey(), 1);
+//                if (items.containsKey(entry.getKey())) {
+//                    System.out.println(items.get(entry) + " + " + entry.getValue() + " , ");
+//
+//
+//                    items.put(entry.getKey(), items.get(entry) + entry.getValue());
+//                }
+
+                else {
+                    items.put(entry.getKey(), 1);
+                }
             }
         }
     }
 
-    public void setTotalPrice() {
-        totalPrice = 0;
+    public int setTempPrice() {
+        tempTotal = 0;
 
         for(Map.Entry<Item, Integer> entry : items.entrySet()) {
-            totalPrice += (entry.getKey().getPrice() * entry.getValue());
+            tempTotal += (entry.getKey().getPrice() * entry.getValue());
         }
+
+        return tempTotal;
+    }
+
+    public void setTotalPrice(String totalPriceInEuros) {
+        totalPrice = totalPriceInEuros;
     }
 
     public String print() {
+
         String newLine = System.getProperty("line.separator");
         OrderManager manager = new OrderManager();
         ArrayList<String> itemList = new ArrayList<String>();
