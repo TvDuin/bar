@@ -192,6 +192,14 @@ public class OrderManager {
         return id;
     }
 
+    public void setBillDate(String date, String time, int tableID) {
+        try {
+            serving.setBillDate(date, time, tableID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public String centsToEuros(int cents) {
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.FRANCE);
         return nf.format(cents/100.0);

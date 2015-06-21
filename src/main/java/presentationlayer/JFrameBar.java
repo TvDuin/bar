@@ -528,7 +528,7 @@ public class JFrameBar extends javax.swing.JFrame {
                 int row = table.rowAtPoint(p);
                 JFrame frame = new JFrame("Rekening");
                 if (me.getClickCount() == 2) {
-                    Object[] options = {"Bon afdrukken","Afrekenen",
+                    Object[] options = {"Bon afdrukken", "Afrekenen",
                             "Annuleren"};
                     int n = JOptionPane.showOptionDialog(frame,
                             "",
@@ -538,12 +538,12 @@ public class JFrameBar extends javax.swing.JFrame {
                             null,     //do not use a custom Icon
                             options,  //the titles of buttons
                             options[1]);
-                    if (n == JOptionPane.YES_OPTION){
+                    if (n == JOptionPane.YES_OPTION) {
                         //bon afdrukken
                         String[] activeMembers = new String[manager.getActiveBarMembers().size()];
                         activeMembers = manager.getActiveBarMembers().toArray(activeMembers);
                         Object[] possibilities = activeMembers; //{ "1", "2", "3" };
-                        String s = (String)JOptionPane.showInputDialog(
+                        String s = (String) JOptionPane.showInputDialog(
                                 frame,
                                 "Bon afdrukken.\n"
                                         + "Kies hieronder je medewerkers ID:",
@@ -553,25 +553,28 @@ public class JFrameBar extends javax.swing.JFrame {
                                 possibilities,
                                 "");
 
-                        if((s != null) && (s.length() > 0)){
+                        if ((s != null) && (s.length() > 0)) {
                             Object data = jTable2.getValueAt(row, 0); // gets the ID and converts to generic Object
 
                             try {
-                                JOptionPane.showMessageDialog (null, manager.returnReceipt(Integer.parseInt(data.toString())).print(), "Receipt", JOptionPane.PLAIN_MESSAGE);
-
+                                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                                Date date = new Date();
+                                manager.setBillDate(dateFormat.format(date), timeFormat.format(date), Integer.parseInt(data.toString()));
+                                JOptionPane.showMessageDialog(null, manager.returnReceipt(Integer.parseInt(data.toString())).print(), "Receipt", JOptionPane.PLAIN_MESSAGE);
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }
                         }
 
                     }
-                    if (n == JOptionPane.NO_OPTION){
+                    if (n == JOptionPane.NO_OPTION) {
                         //Afrekenen
 
                         String[] activeMembers = new String[manager.getActiveBarMembers().size()];
                         activeMembers = manager.getActiveBarMembers().toArray(activeMembers);
                         Object[] possibilities = activeMembers; //{ "1", "2", "3" };
-                        String s = (String)JOptionPane.showInputDialog(
+                        String s = (String) JOptionPane.showInputDialog(
                                 frame,
                                 "Afrekenen.\n"
                                         + "Kies hieronder je medewerkers ID:",
@@ -581,7 +584,7 @@ public class JFrameBar extends javax.swing.JFrame {
                                 possibilities,
                                 "1");
 
-                        if((s != null) && (s.length() > 0)){
+                        if ((s != null) && (s.length() > 0)) {
                             Object data = jTable2.getValueAt(row, 0); // gets the ID and converts to generic Object
                             try {
                                 orderPaid(Integer.parseInt(data.toString()), manager.getStaffId(s.toString()));
@@ -592,7 +595,7 @@ public class JFrameBar extends javax.swing.JFrame {
                         }
 
                     }
-                    if (n == JOptionPane.CANCEL_OPTION){
+                    if (n == JOptionPane.CANCEL_OPTION) {
                         //Annuleren
                     }
 
