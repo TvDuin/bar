@@ -5,7 +5,7 @@ import java.sql.*;
 /**
  * @author D2
  * @version v1.0
- * Class that handles the connection and the execution of queries to and on the selected database.
+ * Class that handles the connection and the exec   ution of queries to and on the selected database.
  */
 
 public class DatabaseConnection {
