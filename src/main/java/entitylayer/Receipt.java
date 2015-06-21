@@ -7,8 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * Created by Thomas on 9-5-2015.
+ * @author D2
+ * @version v1.0
+ * Class that represents a single receipt. Includes the date at which the receipt was printed,
+ * the server that printed the receipt, all the items and the sum of these items.
  */
+
 public class Receipt {
     private Map<Item, Integer> items;
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

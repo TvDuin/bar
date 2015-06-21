@@ -1,8 +1,11 @@
 package entitylayer;
 
 /**
- * Created by Thomas on 11-5-2015.
+ * @author D2
+ * @version v1.0
+ * Class that represents a single item (e.g. one beer)
  */
+
 public class Item {
     private int id;
     private String name;

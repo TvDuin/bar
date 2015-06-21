@@ -3,6 +3,13 @@ package datastoragelayer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * @author D2
+ * @version v1.0
+ * Class that handles all the traffic between the LoginGui and the Databaseconnection.
+ * This checks the input the user has given when entering his/her login details..
+ */
+
 public class InlogDAO {
 
   public boolean logIn(String id, String password) throws SQLException {

@@ -3,7 +3,9 @@ package entitylayer;
 import java.util.Map;
 
 /**
- * Created by Thomas on 29-4-2015.
+ * @author D2
+ * @version v1.0
+ * Class that represents a single order respectively with it's corresponding items.
  */
 
 public class Order {

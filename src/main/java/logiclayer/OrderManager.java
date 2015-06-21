@@ -3,8 +3,6 @@ package logiclayer;
 import datastoragelayer.ServingDAO;
 import entitylayer.*;
 import datastoragelayer.InlogDAO;
-
-import java.lang.reflect.Array;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -13,8 +11,11 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Created by Thomas on 29-4-2015.
+ * @author D2
+ * @version v1.0
+ * This class is responsible for all the logic needed between the entitylayer, datastoragelayer and the presentation layer.
  */
+
 public class OrderManager {
     private ServingDAO serving;
     private InlogDAO login;

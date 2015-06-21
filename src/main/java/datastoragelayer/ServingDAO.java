@@ -1,15 +1,20 @@
 package datastoragelayer;
 
+
+
 import entitylayer.Item;
 import entitylayer.Order;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
 /**
- * Created by Thomas on 29-4-2015.
+ * @author D2
+ * @version v1.0
+ * Class that handles all the traffic between the Ordermanager class and the Databaseconnection.
+ * This class executes all queries used to retrieve data regarding orders and Bar related items.
  */
+
 public class ServingDAO {
 
     public ServingDAO(){
