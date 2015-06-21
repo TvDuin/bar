@@ -21,14 +21,14 @@ public class ServingDAO {
         //Nothing to see here
     }
 
-    public int getBillID(int table_id) throws SQLException{
+    public int getBillID(int tableid) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
         int billID = 0;
 
         if(connection.openConnection()) {
             try {
                 ResultSet result1;
-                String query = "SELECT `table_id` FROM `bill` WHERE `table_id` = " + table_id + " AND `is_paid` = 0;";
+                String query = "SELECT `table_id` FROM `bill` WHERE `table_id` = " + tableid + " AND `is_paid` = 0;";
                 result1 = connection.executeSQLSelectStatement(query);
 
                 while(result1.next()) {
@@ -73,14 +73,14 @@ public class ServingDAO {
         return activeTables;
     }
 
-    public int getWantsToPay(int table_id) throws SQLException{
+    public int getWantsToPay(int tableid) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
         int wantsToPay = 0;
 
         if(connection.openConnection()) {
             try {
                 ResultSet result1;
-                String query = "SELECT `wantsToPay` FROM `bill` WHERE `table_id` = " + table_id;
+                String query = "SELECT `wantsToPay` FROM `bill` WHERE `table_id` = " + tableid;
                 result1 = connection.executeSQLSelectStatement(query);
 
                 while(result1.next()) {

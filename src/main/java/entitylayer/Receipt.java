@@ -16,7 +16,6 @@ import java.util.*;
 public class Receipt {
     private Map<Item, Integer> items;
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    private Date date;
     String dateRepresentation;
     private String servername;
     private String totalPrice;
@@ -24,7 +23,7 @@ public class Receipt {
 
     public Receipt(){
         items = new HashMap<Item, Integer>();
-        date = new Date();
+        Date date = new Date();
         dateRepresentation = dateFormat.format(date);
     }
 
