@@ -84,8 +84,9 @@ public class OrderManager {
         return allOrders;
     }
 
-    public Receipt returnReceipt(int tableId) throws SQLException{
+    public Receipt returnReceipt(int tableId, String servername) throws SQLException{
         Receipt receipt = new Receipt();
+        receipt.setServerName(servername);
         for(Order o : retrieveAllFromTable(tableId)) {
             receipt.addOrder(o);
         }
@@ -192,9 +193,9 @@ public class OrderManager {
         return id;
     }
 
-    public void setBillDate(String date, String time, int tableID) {
+    public void setBillDate(String date, String time, int tableID, String servername) {
         try {
-            serving.setBillDate(date, time, tableID);
+            serving.setBillDate(date, time, tableID, getStaffId(servername));
         } catch (SQLException e) {
             e.printStackTrace();
         }

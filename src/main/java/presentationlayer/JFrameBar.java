@@ -560,8 +560,8 @@ public class JFrameBar extends javax.swing.JFrame {
                                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                                 DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
                                 Date date = new Date();
-                                manager.setBillDate(dateFormat.format(date), timeFormat.format(date), Integer.parseInt(data.toString()));
-                                JOptionPane.showMessageDialog(null, manager.returnReceipt(Integer.parseInt(data.toString())).print(), "Receipt", JOptionPane.PLAIN_MESSAGE);
+                                manager.setBillDate(dateFormat.format(date), timeFormat.format(date), Integer.parseInt(data.toString()), s);
+                                JOptionPane.showMessageDialog(null, manager.returnReceipt(Integer.parseInt(data.toString()), s).print(), "Receipt", JOptionPane.PLAIN_MESSAGE);
                             } catch (SQLException e) {
                                 e.printStackTrace();
                             }

@@ -364,12 +364,12 @@ public class ServingDAO {
     }
 
 
-    public void setBillDate(String date, String time, int tableId) throws SQLException{
+    public void setBillDate(String date, String time, int tableId, int serverID) throws SQLException{
         DatabaseConnection connection = new DatabaseConnection();
 
         if(connection.openConnection()) {
             ResultSet result1;
-            String query1 = "UPDATE `bill` SET `date` = '" + date + "' , `time` = '" + time + "' WHERE `table_id` = " + tableId + " AND is_paid = 0";
+            String query1 = "UPDATE `bill` SET `date` = '" + date + "' , `time` = '" + time + "' , staff_ID = '" + serverID + "' WHERE `table_id` = " + tableId + " AND is_paid = 0";
 
             try {
                 connection.executeSQLInsertStatement(query1);

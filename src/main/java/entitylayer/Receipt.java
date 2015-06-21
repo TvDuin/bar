@@ -14,7 +14,7 @@ public class Receipt {
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private Date date;
     String dateRepresentation;
-    private int serverId;
+    private String servername;
     private String totalPrice;
     private int tempTotal;
 
@@ -32,8 +32,12 @@ public class Receipt {
         return dateRepresentation;
     }
 
-    public int getServerId() {
-        return serverId;
+    public String getServerName() {
+        return servername;
+    }
+
+    public void setServerName(String servername) {
+        this.servername = servername;
     }
 
     public void addOrder(Order order) {
@@ -94,13 +98,14 @@ public class Receipt {
 
         String date = (dateRepresentation + newLine);
         String empty = ("-----------------" + newLine);
+        String server = ("U bent geholpen door: " + servername + newLine);
 
         for(Map.Entry<Item, Integer> entry : items.entrySet()) {
             itemList.add((entry.getKey().getName() + "     " + entry.getValue() + "x  " + manager.centsToEuros(entry.getKey().getPrice()) + newLine));
         }
 
         String totalprice = String.valueOf(totalPrice);
-        return date + empty + itemList + newLine + "-----------" + newLine + "Totaalbedrag: " + totalprice;
+        return date + empty + server + empty + itemList + newLine + "-----------------" + newLine + "Totaalbedrag: " + totalprice;
     }
 
 }
