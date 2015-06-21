@@ -1,13 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package presentationlayer;
 
 import entitylayer.Item;
 import entitylayer.Order;
-import entitylayer.Receipt;
 import logiclayer.OrderManager;
 
 import javax.swing.*;
@@ -430,7 +424,7 @@ public class JFrameBar extends javax.swing.JFrame {
         });
     }
 
-    private void updateOrders(){
+    private void updateOrders(){ //Updates the tables that display all open beverage & dish orders
         try {
             loadDataLiquids();
         } catch (SQLException e) {
@@ -443,7 +437,7 @@ public class JFrameBar extends javax.swing.JFrame {
         }
     }
 
-    private void updateTables(){
+    private void updateTables(){ //Updates the table that displays the tabledata
         try {
             loadTables();
         } catch (SQLException e) {
@@ -453,7 +447,7 @@ public class JFrameBar extends javax.swing.JFrame {
 
     private void addMouseListeners(){
         jTable1.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent me) {
+            public void mousePressed(MouseEvent me) { //Mouselistener for the table "Bar"
                 JTable table = (JTable) me.getSource();
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
@@ -475,7 +469,7 @@ public class JFrameBar extends javax.swing.JFrame {
 
                     if((s != null) && (s.length() > 0)){
                         Object data = jTable1.getValueAt(row, 0); // gets the ID and converts to generic Object
-                        try {
+                        try { //Code that serves a beverage_item
                             System.out.println(manager.getStaffId(s.toString()));
                             manager.serveBeverageOrder(Integer.parseInt(data.toString()), manager.getStaffId(s.toString()));
                             updateOrders();
@@ -488,7 +482,7 @@ public class JFrameBar extends javax.swing.JFrame {
         });
 
         jTable3.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent me) {
+            public void mousePressed(MouseEvent me) { // Mouselistener for the table "Keuken"
                 JTable table = (JTable) me.getSource();
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
@@ -522,7 +516,7 @@ public class JFrameBar extends javax.swing.JFrame {
         });
 
         jTable2.addMouseListener(new MouseAdapter() { //Needs to get some functionality. First user prints receipt (which shows on screen) then sets status to isPaid = 1.
-            public void mousePressed(MouseEvent me) {
+            public void mousePressed(MouseEvent me) { // Mouselistener for the table "Tables"
                 JTable table = (JTable) me.getSource();
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
@@ -556,7 +550,7 @@ public class JFrameBar extends javax.swing.JFrame {
                         if ((s != null) && (s.length() > 0)) {
                             Object data = jTable2.getValueAt(row, 0); // gets the ID and converts to generic Object
 
-                            try {
+                            try { // Print the receipt
                                 DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
                                 DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
                                 Date date = new Date();
@@ -586,7 +580,7 @@ public class JFrameBar extends javax.swing.JFrame {
 
                         if ((s != null) && (s.length() > 0)) {
                             Object data = jTable2.getValueAt(row, 0); // gets the ID and converts to generic Object
-                            try {
+                            try { // Set the order as paid.
                                 orderPaid(Integer.parseInt(data.toString()), manager.getStaffId(s.toString()));
                                 updateTables();
                             } catch (SQLException e) {
@@ -607,7 +601,7 @@ public class JFrameBar extends javax.swing.JFrame {
 
     }
 
-    private void loadDataLiquids() throws SQLException
+    private void loadDataLiquids() throws SQLException // Loads all beverages in to the table "Bar"
     {
         DefaultTableModel modelDranken = (DefaultTableModel) jTable1.getModel();
 
@@ -623,7 +617,7 @@ public class JFrameBar extends javax.swing.JFrame {
         }
 	}
     
-    private void loadDataSolids() throws SQLException
+    private void loadDataSolids() throws SQLException // Loads all (accepted) dishes in to the table "Keuken"
     {
         DefaultTableModel modelSolids = (DefaultTableModel) jTable3.getModel();
 
@@ -639,7 +633,7 @@ public class JFrameBar extends javax.swing.JFrame {
         }
 	}
 
-    private void loadTables() throws SQLException {
+    private void loadTables() throws SQLException { // Loads all active tables in to the table "Tables"
         DefaultTableModel modelTables = (DefaultTableModel) jTable2.getModel();
 
         modelTables.setRowCount(0);

@@ -29,7 +29,7 @@ public class OrderManager {
         availableDishOrders = new ArrayList<Order>();
     }
 
-    //geeft alle servings terug uit de de servingDao
+    //Returns all beverage orders from the ServingDAO
     public List<Order> getAllLiquidOrders() throws SQLException{
         availableBeverageOrders = serving.retrieveOrders(1, "beverage");
         for(Order o : availableBeverageOrders) {
@@ -38,6 +38,7 @@ public class OrderManager {
         return availableBeverageOrders;
     }
 
+    //Returns all dish orders from the ServingDAO
     public List<Order> getAllSolidOrders() throws SQLException {
         availableDishOrders.clear();
         availableDishOrders.addAll(serving.retrieveOrders(4, "dish"));
@@ -60,7 +61,7 @@ public class OrderManager {
         return serving.getActiveTables();
     }
 
-    public List<Order> retrieveAllFromTable(int tableID) throws SQLException {
+    public List<Order> retrieveAllFromTable(int tableID) throws SQLException { // Retrieves all orders from a given table
         int billID = serving.getBillID(tableID);
         List<Order> tmpList;
         List<Order> allOrders = new ArrayList<Order>();
@@ -84,7 +85,7 @@ public class OrderManager {
         return allOrders;
     }
 
-    public Receipt returnReceipt(int tableId, String servername) throws SQLException{
+    public Receipt returnReceipt(int tableId, String servername) throws SQLException{ // Creates and returns a receipt.
         Receipt receipt = new Receipt();
         receipt.setServerName(servername);
         for(Order o : retrieveAllFromTable(tableId)) {
@@ -96,7 +97,7 @@ public class OrderManager {
         return receipt;
     }
 
-    public int getWantsToPay(int tableID){
+    public int getWantsToPay(int tableID){ // Retrieves tables that want to pay
         int wantsToPay = 0;
 
         try {
@@ -125,7 +126,7 @@ public class OrderManager {
     return check;
     }
 
-    public String getDayResults(String soort, String date) throws SQLException{
+    public String getDayResults(String soort, String date) throws SQLException{ //Retrieves the results on a given day
         List<Order> tmpList;
         List<Integer> billIDs = serving.getAllPaidBills(date);
         int beverageTotal = 0;
@@ -181,7 +182,7 @@ public class OrderManager {
         return tmpList;
     }
 
-    public int getStaffId(String loginName) {
+    public int getStaffId(String loginName) { // Retrieves the staff_ID that belongs to the given loginName
         int id = 0;
 
         try {
@@ -193,7 +194,7 @@ public class OrderManager {
         return id;
     }
 
-    public void setBillDate(String date, String time, int tableID, String servername) {
+    public void setBillDate(String date, String time, int tableID, String servername) { //Sets the date of a bill
         try {
             serving.setBillDate(date, time, tableID, getStaffId(servername));
         } catch (SQLException e) {
@@ -201,7 +202,7 @@ public class OrderManager {
         }
     }
 
-    public String centsToEuros(int cents) {
+    public String centsToEuros(int cents) { //Converts cents to euros
         NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.FRANCE);
         return nf.format(cents/100.0);
     }

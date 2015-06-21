@@ -31,8 +31,7 @@ public class DatabaseConnection {
             {
                 // Try to create a connection with the library database; No user and password have been set.
                 connection = DriverManager.getConnection("jdbc:mysql://localhost/hartigehapivp4d" , "root", "");
-                        //"jdbc:mysql://145.48.6.148/hartigehapivp4d" , "root", "10ec4u"); //need to change this to the correct IP DO NOT FORGET!
-
+                        //"jdbc:mysql://145.48.6.148/hartigehapivp4d" , "root", "10ec4u"); // Switch comments to switch database
                 if(connection != null)
                 {
                     statement = connection.createStatement();
@@ -143,7 +142,7 @@ public class DatabaseConnection {
             // Then, if succeeded, execute the query.
             try
             {
-                statement.executeUpdate(query); //what does executeUpdate do? Is this needed or do we need to use another function?
+                statement.executeUpdate(query);
             }
             catch(SQLException e)
             {

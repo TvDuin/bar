@@ -3,8 +3,6 @@ package datastoragelayer;
 import entitylayer.Item;
 import entitylayer.Order;
 
-import javax.xml.crypto.Data;
-import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
@@ -96,14 +94,14 @@ public class ServingDAO {
         return wantsToPay;
     }
 
-    public List<Order> retrieveOrders(int status, String type) throws SQLException { //retrieves orders by status and, either 1 or 3, and either beverage or dish
+    public List<Order> retrieveOrders(int status, String type) throws SQLException { //retrieves orders by status, either 1 or 3, and either beverage or dish
         DatabaseConnection connection = new DatabaseConnection();
         List<Order> availableOrders = new ArrayList<Order>();
 
         if(connection.openConnection()) {
             try {
                 ResultSet result1; //query that contains all the ID, tableID and statusses from all available
-                String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `status` = " + status + ";"; // 1 = geplaatst
+                String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `status` = " + status + ";"; // 1 = placed
                 result1 = connection.executeSQLSelectStatement(query);
 
                 while(result1.next()) {
@@ -122,13 +120,13 @@ public class ServingDAO {
         return availableOrders;
     }
 
-    public List<Order> retrieveOrdersByID(int id, String type) throws SQLException { //retrieves orders by id
+    public List<Order> retrieveOrdersByID(int id, String type) throws SQLException { //Retrieves orders by id
         DatabaseConnection connection = new DatabaseConnection();
         List<Order> availableOrders = new ArrayList<Order>();
 
         if(connection.openConnection()) {
             try {
-                ResultSet result1; //query that contains all the ID, tableID and statusses from all available
+                ResultSet result1; //Query that contains all the ID, tableID and statuses from all available
                 String query = "SELECT `ID`,`table_ID`,`status` FROM `" + type + "_order` WHERE `table_ID` = " + id + ";";
                 result1 = connection.executeSQLSelectStatement(query);
 
@@ -162,7 +160,7 @@ public class ServingDAO {
                 result = connection.executeSQLSelectStatement(query);
 
                 while(result.next()) {
-                    //fill hashmap here using a the result of the join statement
+                    //Fill hashmap here using a the result of the join statement
                     items.put(new Item(result.getInt("beverage_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount"));
                 }
             }
@@ -192,7 +190,7 @@ public class ServingDAO {
                 result = connection.executeSQLSelectStatement(query);
 
                 while(result.next()) {
-                    //fill hashmap here using the result of the join statement
+                    //Fill hashmap here using the result of the join statement
                     items.put(new Item(result.getInt("dish_item_ID"), result.getString("name"), result.getInt("price")), result.getInt("amount"));
                 }
             }
@@ -268,9 +266,8 @@ public class ServingDAO {
         DatabaseConnection connection = new DatabaseConnection();
         boolean bool = false;
 
-        //gaat kijken of er een connectie bestaat.
+        // Checks for a valid conncetion
         if(connection.openConnection()) {
-            //sql voor informatie uit de database te halen.
             String query1 = "UPDATE `bill` SET `staff_ID` = " + staff_ID + " WHERE `table_id` = " + tableId + " AND is_paid = 0";
             String query2 = "UPDATE `bill` SET `is_paid` = 1 WHERE `table_id` = " + tableId + " AND is_paid = 0";
 
@@ -321,7 +318,7 @@ public class ServingDAO {
         return IDs;
     }
 
-    public List<String> getActiveBarMembers() throws SQLException{
+    public List<String> getActiveBarMembers() throws SQLException{ // Retrieves all active staff-members that work in the bar.
         DatabaseConnection connection = new DatabaseConnection();
         List<String> staffNames = new ArrayList<String>();
 
@@ -368,7 +365,6 @@ public class ServingDAO {
         DatabaseConnection connection = new DatabaseConnection();
 
         if(connection.openConnection()) {
-            ResultSet result1;
             String query1 = "UPDATE `bill` SET `date` = '" + date + "' , `time` = '" + time + "' , staff_ID = '" + serverID + "' WHERE `table_id` = " + tableId + " AND is_paid = 0";
 
             try {
