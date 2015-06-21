@@ -451,7 +451,6 @@ public class JFrameBar extends javax.swing.JFrame {
                 JTable table = (JTable) me.getSource();
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
-                System.out.println("Row: " + row);
                 JFrame frame = new JFrame("Bestelling uitserveren");
                 if (me.getClickCount() == 2) {
                     String[] activeMembers = new String[manager.getActiveBarMembers().size()];
@@ -470,7 +469,6 @@ public class JFrameBar extends javax.swing.JFrame {
                     if((s != null) && (s.length() > 0)){
                         Object data = jTable1.getValueAt(row, 0); // gets the ID and converts to generic Object
                         try { //Code that serves a beverage_item
-                            System.out.println(manager.getStaffId(s.toString()));
                             manager.serveBeverageOrder(Integer.parseInt(data.toString()), manager.getStaffId(s.toString()));
                             updateOrders();
                         } catch (SQLException e) {
@@ -486,7 +484,6 @@ public class JFrameBar extends javax.swing.JFrame {
                 JTable table = (JTable) me.getSource();
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
-                System.out.println("Row: " + row);
                 JFrame frame = new JFrame("Gerecht uitserveren");
                 if (me.getClickCount() == 2) {
                     String[] activeMembers = new String[manager.getActiveBarMembers().size()];
@@ -581,6 +578,10 @@ public class JFrameBar extends javax.swing.JFrame {
                         if ((s != null) && (s.length() > 0)) {
                             Object data = jTable2.getValueAt(row, 0); // gets the ID and converts to generic Object
                             try { // Set the order as paid.
+                                DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+                                DateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+                                Date date = new Date();
+                                manager.setBillDate(dateFormat.format(date), timeFormat.format(date), Integer.parseInt(data.toString()), s);
                                 orderPaid(Integer.parseInt(data.toString()), manager.getStaffId(s.toString()));
                                 updateTables();
                             } catch (SQLException e) {

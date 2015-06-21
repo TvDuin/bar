@@ -221,7 +221,6 @@ public class ServingDAO {
                 items = getBeverageItems(id);
                 for(Map.Entry<Item, Integer> entry : items.entrySet()) {
                     String query5 = "UPDATE `food` SET `stock` = (stock - " + entry.getValue() + ")  WHERE `name` = '"+ entry.getKey().getName() + "';";
-                    System.out.println(query5);
                     connection.executeSQLInsertStatement(query5);
                 }
             }
