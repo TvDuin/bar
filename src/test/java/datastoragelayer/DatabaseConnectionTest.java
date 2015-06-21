@@ -3,8 +3,6 @@ package datastoragelayer;
 import junit.framework.TestCase;
 import org.junit.*;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * Created by Thomas on 15-6-2015.
  */
