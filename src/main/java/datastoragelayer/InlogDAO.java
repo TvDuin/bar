@@ -20,7 +20,7 @@ public class InlogDAO {
      // Checks if a valid connection has been established.
      if (connection.openConnection()) {
         ResultSet result2;
-        String query = "SELECT login_name, password FROM `staff` WHERE group_ID IN(4,5) AND login_name ='" + id +
+        String query = "SELECT login_name, password FROM `staff` WHERE group_ID IN(1,4,5) AND login_name ='" + id +
               "' AND password = '" + password + "';";
         result2 = connection.executeSQLSelectStatement(query); // Query gets executed.
         try {
