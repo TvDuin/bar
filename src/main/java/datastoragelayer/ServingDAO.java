@@ -328,7 +328,7 @@ public class ServingDAO {
 
         if(connection.openConnection()) {
             ResultSet result1;
-            String query1 = "SELECT staff.ID, staff.login_name, present.active FROM staff INNER JOIN present ON staff.ID = present.staff_ID WHERE present.active = 1 AND staff.group_ID IN (1,4,5);";
+            String query1 = "SELECT staff.ID, staff.login_name, present.active FROM staff INNER JOIN present ON staff.ID = present.staff_ID WHERE present.active = 1 AND staff.group_ID IN (4,5);";
             result1 = connection.executeSQLSelectStatement(query1);
             try {
                 while(result1.next()) {
